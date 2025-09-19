@@ -135,17 +135,41 @@ npm run preview
 
 ### Vercel (권장)
 
-```bash
-# Vercel CLI 설치
-npm i -g vercel
+1. **환경 변수 설정**:
+   - Vercel Dashboard > Project Settings > Environment Variables
+   - `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` 추가
 
-# 배포
-vercel --prod
-```
+2. **자동 배포**:
+   ```bash
+   # GitHub 연동으로 자동 배포
+   git push origin main
+   ```
+
+3. **수동 배포**:
+   ```bash
+   # Vercel CLI 설치
+   npm i -g vercel
+
+   # 배포
+   vercel --prod
+   ```
+
+4. **중요 설정**:
+   - `vercel.json`에서 SPA 라우팅 설정됨
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+
+### 배포 시 주의사항
+
+- ✅ `vercel.json` 파일 포함 (SPA 라우팅 지원)
+- ✅ 환경 변수 설정 필수
+- ✅ Supabase URL과 도메인 CORS 설정 확인
 
 ### 기타 플랫폼
 
 빌드된 `dist` 폴더를 정적 호스팅 서비스에 업로드
+- Netlify: `_redirects` 파일 필요
+- GitHub Pages: HashRouter 사용 권장
 
 ## 보안 정책
 
