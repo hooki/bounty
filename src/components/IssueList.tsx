@@ -148,15 +148,13 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
           </div>
 
           {showReportButton && onReportClick && (
-            <div>
-              <button
-                onClick={onReportClick}
-                className="bg-gradient-to-r from-neon-pink to-gaming-500 hover:from-neon-pink/80 hover:to-gaming-400 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
-              >
-                <span>🔍</span>
-                <span>Report Discovery</span>
-              </button>
-            </div>
+            <button
+              onClick={onReportClick}
+              className="bg-gradient-to-r from-neon-pink to-gaming-500 hover:from-neon-pink/80 hover:to-gaming-400 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
+            >
+              <span>🔍</span>
+              <span>Report Discovery</span>
+            </button>
           )}
         </div>
       </div>

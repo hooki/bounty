@@ -54,10 +54,6 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
     <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl">
       {/* Mission Control Panel */}
       <div className="p-6 border-b border-gray-700">
-        <div className="flex items-center space-x-2 mb-4">
-          <span className="text-2xl">🎛️</span>
-          <h2 className="text-lg font-bold text-white">Mission Control Panel</h2>
-        </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-4">
             <div>
@@ -118,7 +114,8 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-3 mb-2">
-                    <div className="text-2xl">🚀</div>
+                    <img src="https://avatars.githubusercontent.com/u/30994093?s=48&v=4" alt="avatar" className="h-5 w-5 rounded-full" />
+                    <span className="text-sm text-gray-400">{project.repository_url.split('/').pop()}</span>
                     <h3 className="text-lg font-medium text-white group-hover:text-primary-300 truncate">
                       {project.title}
                     </h3>
@@ -140,7 +137,9 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
                   <div className="mb-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
-                        <span className="text-lg">🔗</span>
+                        <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
+                        </svg>
                         <a
                           href={project.repository_url}
                           target="_blank"
@@ -177,11 +176,8 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
                       </div>
                     </div>
 
-                    <div className="text-right">
-                      <div className="text-lg font-bold text-neon-green animate-pulse-fast">
-                        💰 ${project.total_reward_pool.toLocaleString()}
-                      </div>
-                      <div className="text-sm text-gray-400">Bounty Pool</div>
+                    <div className="text-lg font-bold text-neon-green animate-pulse-fast">
+                      💰 ${project.total_reward_pool.toLocaleString()}
                     </div>
                   </div>
                 </div>
