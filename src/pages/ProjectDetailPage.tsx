@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useProjects } from '../hooks/useProjects';
 import { useIssues } from '../hooks/useIssues';
 import { useLeaderboard } from '../hooks/useLeaderboard';
@@ -115,8 +118,44 @@ export default function ProjectDetailPage() {
               )}
             </div>
 
-            <div className="prose prose-sm max-w-none mb-6">
-              <p className="text-white/90 text-lg">{project.description}</p>
+            <div className="prose prose-sm max-w-none mb-6 prose-invert">
+              <ReactMarkdown
+                components={{
+                  code({ className, children, ...props }: any) {
+                    const match = /language-(\w+)/.exec(className || '');
+                    const inline = props.inline;
+                    return !inline && match ? (
+                      <SyntaxHighlighter
+                        style={tomorrow as any}
+                        language={match[1]}
+                        PreTag="div"
+                        {...props}
+                      >
+                        {String(children).replace(/\n$/, '')}
+                      </SyntaxHighlighter>
+                    ) : (
+                      <code className="bg-gray-800 text-neon-green px-1 py-0.5 rounded text-sm" {...props}>
+                        {children}
+                      </code>
+                    );
+                  },
+                  a({ children, href, ...props }: any) {
+                    return (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyber-400 hover:text-cyber-300 underline"
+                        {...props}
+                      >
+                        {children}
+                      </a>
+                    );
+                  },
+                }}
+              >
+                {project.description}
+              </ReactMarkdown>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
