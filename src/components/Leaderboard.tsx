@@ -65,14 +65,6 @@ export default function Leaderboard({ entries, loading, projectTitle }: Leaderbo
 
   return (
     <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl">
-      <div className="px-6 py-4 border-b border-gray-700">
-        <h3 className="text-lg font-medium text-white flex items-center space-x-2">
-          <span>🏆</span>
-          <span>{projectTitle ? `${projectTitle} Hunter Rankings` : 'Global Hunter Rankings'}</span>
-        </h3>
-        <p className="text-sm text-gray-400">Elite hunters ranked by bounty earnings and bug discoveries</p>
-      </div>
-
       <div className="divide-y divide-gray-700">
         {entries.map((entry, index) => (
           <div key={`${entry.project_id}-${entry.user_id}`} className="group p-6 hover:bg-gray-800/50 transition-all duration-300">

@@ -336,10 +336,6 @@ export default function ProjectDetailPage() {
 
           {activeTab === 'leaderboard' && (
             <div>
-              <h3 className="text-lg font-medium text-white mb-4 flex items-center space-x-2">
-                <span>🏆</span>
-                <span>Hunter Leaderboard</span>
-              </h3>
               <Leaderboard
                 entries={leaderboard}
                 loading={leaderboardLoading}

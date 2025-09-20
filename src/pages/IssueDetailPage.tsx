@@ -321,16 +321,12 @@ export default function IssueDetailPage() {
       <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl p-8 border border-gray-600">
         <h2 className="text-lg font-medium text-white mb-6 flex items-center space-x-2">
           <span>💬</span>
-          <span>Hunter Communications ({comments.length})</span>
+          <span>Communications ({comments.length})</span>
         </h2>
 
         {/* Add Communication */}
         {user && (
           <div className="mb-6">
-            <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
-              <span>✍️</span>
-              <span>Hunter Communication</span>
-            </label>
             <textarea
               rows={4}
               value={newComment}
@@ -387,7 +383,6 @@ export default function IssueDetailPage() {
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-3">
                       <span className="font-bold text-white flex items-center space-x-1">
-                        <span>🥷</span>
                         <span>{comment.user.username}</span>
                       </span>
                       {comment.is_system_generated && (
