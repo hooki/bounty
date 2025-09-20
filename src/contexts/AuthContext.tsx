@@ -157,6 +157,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         provider: 'github',
         options: {
           scopes: 'read:org repo',
+          redirectTo: window.location.origin,
         },
       });
 

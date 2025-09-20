@@ -184,7 +184,6 @@ export default function ProjectDetailPage() {
       <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl">
         <div className="border-b border-gray-700">
           <div className="flex items-center space-x-2 p-6 pb-0">
-            <span className="text-2xl">🏛️</span>
             <h2 className="text-lg font-bold text-white">Mission Control Center</h2>
           </div>
           <nav className="-mb-px flex space-x-8 px-6">
@@ -273,23 +272,7 @@ export default function ProjectDetailPage() {
           )}
 
           {activeTab === 'issues' && (
-            <div className="space-y-6">
-              {project.status === 'active' && (
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-medium text-white flex items-center space-x-2">
-                    <span>🐛</span>
-                    <span>Bug Reports</span>
-                  </h3>
-                  <button
-                    onClick={() => setShowIssueForm(true)}
-                    className="bg-gradient-to-r from-neon-pink to-gaming-500 hover:from-neon-pink/80 hover:to-gaming-400 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
-                  >
-                    <span>🔍</span>
-                    <span>Report Discovery</span>
-                  </button>
-                </div>
-              )}
-
+            <div>
               {showIssueForm ? (
                 <IssueForm
                   projectId={id!}
@@ -303,6 +286,8 @@ export default function ProjectDetailPage() {
                   loading={issuesLoading}
                   onIssueClick={handleIssueClick}
                   showProjectTitle={false}
+                  showReportButton={project.status === 'active'}
+                  onReportClick={() => setShowIssueForm(true)}
                 />
               )}
             </div>

@@ -81,7 +81,10 @@ export function useProjects() {
         .eq("id", user.id)
         .single()
 
+      console.log(user.id)
+
       if (profileError || !userProfile) {
+        console.log(profileError)
         throw new Error("User profile not found. Please refresh and try again.")
       }
 

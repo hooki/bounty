@@ -70,8 +70,8 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
               <label
                 key={option.value}
                 className={`relative flex items-center justify-center p-4 border-2 rounded-xl cursor-pointer transition-all duration-300 transform hover:scale-105 ${formData.severity === option.value
-                    ? 'border-primary-400 bg-gray-800/50 shadow-lg shadow-primary-500/25'
-                    : 'border-gray-600 hover:border-gray-500 bg-gray-800/30'
+                  ? 'border-primary-400 bg-gray-800/50 shadow-lg shadow-primary-500/25'
+                  : 'border-gray-600 hover:border-gray-500 bg-gray-800/30'
                   }`}
               >
                 <input
@@ -107,8 +107,8 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
                 type="button"
                 onClick={() => setShowPreview(false)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${!showPreview
-                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:text-white hover:bg-gray-600'
+                  ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:text-white hover:bg-gray-600'
                   }`}
               >
                 ✏️ Edit
@@ -117,8 +117,8 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
                 type="button"
                 onClick={() => setShowPreview(true)}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${showPreview
-                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:text-white hover:bg-gray-600'
+                  ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
+                  : 'bg-gray-700 text-gray-300 hover:text-white hover:bg-gray-600'
                   }`}
               >
                 👁️ Preview

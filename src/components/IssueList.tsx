@@ -9,6 +9,7 @@ type Issue = Database['public']['Tables']['issues']['Row'] & {
   project: {
     title: string;
     owner_id: string;
+    repository_url: string;
   };
 };
 
@@ -17,9 +18,11 @@ interface IssueListProps {
   loading: boolean;
   onIssueClick: (issue: Issue) => void;
   showProjectTitle?: boolean;
+  showReportButton?: boolean;
+  onReportClick?: () => void;
 }
 
-export default function IssueList({ issues, loading, onIssueClick, showProjectTitle = false }: IssueListProps) {
+export default function IssueList({ issues, loading, onIssueClick, showProjectTitle = false, showReportButton = false, onReportClick }: IssueListProps) {
   const [sortBy, setSortBy] = useState<'created_at' | 'severity' | 'status'>('created_at');
   const [filterStatus, setFilterStatus] = useState<'all' | 'open' | 'in_progress' | 'solved' | 'acknowledged' | 'invalid' | 'duplicated'>('all');
   const [filterSeverity, setFilterSeverity] = useState<'all' | 'low' | 'medium' | 'high' | 'critical'>('all');
@@ -96,10 +99,6 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
     <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl">
       {/* Bug Hunt Control Panel */}
       <div className="p-6 border-b border-gray-700">
-        <div className="flex items-center space-x-2 mb-4">
-          <span className="text-2xl">🎯</span>
-          <h2 className="text-lg font-bold text-white">Bug Hunt Control Panel</h2>
-        </div>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-4">
             <div>
@@ -147,6 +146,18 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
               </select>
             </div>
           </div>
+
+          {showReportButton && onReportClick && (
+            <div>
+              <button
+                onClick={onReportClick}
+                className="bg-gradient-to-r from-neon-pink to-gaming-500 hover:from-neon-pink/80 hover:to-gaming-400 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
+              >
+                <span>🔍</span>
+                <span>Report Discovery</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -167,42 +178,40 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <div className="text-2xl">🐛</div>
-                    <h3 className="text-lg font-medium text-white group-hover:text-primary-300 truncate">
-                      {issue.title}
-                    </h3>
-                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${getSeverityColor(issue.severity)}`}>
-                      {issue.severity === 'critical' && '🔴'}
-                      {issue.severity === 'high' && '🟠'}
-                      {issue.severity === 'medium' && '🟡'}
-                      {issue.severity === 'low' && '🟢'}
-                      {issue.severity.toUpperCase()}
-                    </span>
-                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(issue.status)}`}>
-                      {getStatusLabel(issue.status)}
-                    </span>
+                  <div className="flex items-center space-x-3 mb-2 justify-between">
+                    <div className="flex items-center gap-3">
+                      <img src="https://avatars.githubusercontent.com/u/30994093?s=48&v=4" alt="avatar" className="h-5 w-5 rounded-full" />
+                      <span className="text-sm text-gray-400">{issue.project.repository_url.split('/').pop()}</span>
+                      <h3 className="text-lg font-medium text-white group-hover:text-primary-300 truncate">
+                        {issue.title}
+                      </h3>
+                    </div>
+                    <div className="flex gap-2">
+                      {issue.status !== 'invalid' && <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${getSeverityColor(issue.severity)}`}>
+                        {issue.severity === 'critical' && '🔴'}
+                        {issue.severity === 'high' && '🟠'}
+                        {issue.severity === 'medium' && '🟡'}
+                        {issue.severity === 'low' && '🟢'}
+                        {issue.severity.toUpperCase()}
+                      </span>}
+                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(issue.status)}`}>
+                        {getStatusLabel(issue.status)}
+                      </span>
+                    </div>
                   </div>
 
-                  {showProjectTitle && (
-                    <p className="text-sm text-gray-400 mb-2 flex items-center space-x-1">
-                      <span>🎯</span>
-                      <span>Mission: {issue.project.title}</span>
-                    </p>
-                  )}
-
-                  <p className="text-sm text-gray-400 mb-3 line-clamp-2">
-                    {issue.description.substring(0, 150)}...
-                  </p>
-
                   <div className="flex items-center space-x-4 text-sm text-gray-400">
-                    <div className="flex items-center space-x-1">
+                    <div className="flex gap-1">
+                      <span>Issue reported by</span>
+                      <span className="font-medium text-blue-500">{issue.reporter.username}</span>
+                    </div>
+                    {/* <div className="flex items-center space-x-1">
                       <img
                         className="h-5 w-5 rounded-full ring-2 ring-primary-500/50"
                         src={issue.reporter.avatar_url}
                         alt={issue.reporter.username}
                       />
-                      <span>🥷 {issue.reporter.username}</span>
+                      <span>{issue.reporter.username}</span>
                     </div>
                     <div className="flex items-center space-x-1">
                       <span>📅</span>
@@ -213,7 +222,7 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
                         <span>🔗</span>
                         <span>GitHub</span>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>

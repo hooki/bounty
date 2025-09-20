@@ -118,7 +118,7 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center space-x-3 mb-2">
-                    {/* <div className="text-2xl">🚀</div> */}
+                    <div className="text-2xl">🚀</div>
                     <h3 className="text-lg font-medium text-white group-hover:text-primary-300 truncate">
                       {project.title}
                     </h3>
