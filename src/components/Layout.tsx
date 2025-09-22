@@ -34,7 +34,7 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       <Header />
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="relative z-10 w-4/5 mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {children}
       </main>
     </div>

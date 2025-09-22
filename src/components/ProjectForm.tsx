@@ -50,6 +50,8 @@ interface ProjectFormData {
   total_lines_of_code?: number;
   visibility: 'public' | 'organization' | 'private';
   allowed_organizations: string[];
+  start_date?: string;
+  end_date?: string;
 }
 
 interface ProjectFormProps {
@@ -78,6 +80,8 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
     total_lines_of_code: 0,
     visibility: 'organization',
     allowed_organizations: [],
+    start_date: '',
+    end_date: '',
   });
 
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
@@ -249,10 +253,12 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
       return;
     }
 
-    // allowed_organizations를 콤마 구분 문자열로 변환
+    // allowed_organizations를 콤마 구분 문자열로 변환하고 빈 날짜는 null로 처리
     const submissionData = {
       ...formData,
       allowed_organizations: organizationsToString(formData.allowed_organizations),
+      start_date: formData.start_date || null,
+      end_date: formData.end_date || null,
     };
 
     await onSubmit(submissionData as any);
@@ -368,6 +374,41 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                 />
               </div>
             )}
+
+            {/* Mission Timeline */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+                  <span>🗓️</span>
+                  <span>Mission Start Date (Optional)</span>
+                </label>
+                <input
+                  type="date"
+                  value={formData.start_date}
+                  onChange={(e) => setFormData(prev => ({ ...prev, start_date: e.target.value }))}
+                  className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
+                  style={{
+                    colorScheme: 'dark'
+                  }}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+                  <span>🏁</span>
+                  <span>Mission End Date (Optional)</span>
+                </label>
+                <input
+                  type="date"
+                  value={formData.end_date}
+                  onChange={(e) => setFormData(prev => ({ ...prev, end_date: e.target.value }))}
+                  className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
+                  style={{
+                    colorScheme: 'dark'
+                  }}
+                />
+              </div>
+            </div>
 
             <div>
               <div className="flex items-center justify-between mb-4">
