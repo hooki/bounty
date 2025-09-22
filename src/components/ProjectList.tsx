@@ -7,6 +7,7 @@ type Project = Database['public']['Tables']['projects']['Row'] & {
     username: string;
     avatar_url: string;
   };
+  total_lines_of_code?: number;
 };
 
 interface ProjectListProps {

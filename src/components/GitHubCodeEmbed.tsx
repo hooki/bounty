@@ -28,13 +28,11 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
       setError(null);
 
       try {
-        console.log('Processing GitHub links in content...');
         const embeddedContent = await embedGitHubCodeInMarkdown(content);
         setProcessedContent(embeddedContent);
-        console.log('GitHub code embedding completed');
       } catch (err) {
         console.error('Error processing GitHub links:', err);
-        setError('Failed to embed GitHub code');
+        setError(err instanceof Error ? err.message : 'Failed to embed GitHub code');
         setProcessedContent(content); // 원본 내용으로 fallback
       } finally {
         setLoading(false);
@@ -57,13 +55,55 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
 
   if (error) {
     return (
-      <div className={`border-l-4 border-yellow-500 bg-yellow-50 p-4 ${className || ''}`}>
+      <div className={`border-l-4 border-yellow-500 bg-yellow-900/50 p-4 rounded ${className || ''}`}>
         <div className="flex">
           <div className="ml-3">
-            <p className="text-sm text-yellow-700">
-              ⚠️ {error}. Showing original content.
+            <p className="text-sm text-yellow-300">
+              ⚠️ {error}
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Showing original content without GitHub code embedding.
             </p>
           </div>
+        </div>
+        <div className="mt-3">
+          <ReactMarkdown
+            components={{
+              code({ className, children, ...props }: any) {
+                const match = /language-(\w+)/.exec(className || '');
+                const inline = props.inline;
+                return !inline && match ? (
+                  <SyntaxHighlighter
+                    style={tomorrow as any}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className="bg-gray-800 text-neon-green px-1 py-0.5 rounded text-sm" {...props}>
+                    {children}
+                  </code>
+                );
+              },
+              a({ href, children, ...props }) {
+                return (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyber-400 hover:text-cyber-300 underline"
+                    {...props}
+                  >
+                    {children}
+                  </a>
+                );
+              },
+            }}
+          >
+            {content}
+          </ReactMarkdown>
         </div>
       </div>
     );

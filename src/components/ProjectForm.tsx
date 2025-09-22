@@ -7,6 +7,7 @@ import { useOrganizations } from '../hooks/useOrganizations';
 import FileTree from './FileTree';
 import OrganizationSelector from './OrganizationSelector';
 import { calculateLinesOfCode, formatLineCount } from '../utils/locCalculator';
+import { EnhancedMarkdown } from './GitHubCodeEmbed';
 
 interface GitHubRepo {
   id: number;
@@ -402,30 +403,9 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                 <div className="min-h-[150px] p-4 border-2 border-gray-600 rounded-lg bg-gray-800/50">
                   {formData.description ? (
                     <div className="prose prose-sm max-w-none prose-invert">
-                      <ReactMarkdown
-                        components={{
-                          code({ className, children, ...props }: any) {
-                            const match = /language-(\w+)/.exec(className || '');
-                            const inline = props.inline;
-                            return !inline && match ? (
-                              <SyntaxHighlighter
-                                style={tomorrow as any}
-                                language={match[1]}
-                                PreTag="div"
-                                {...props}
-                              >
-                                {String(children).replace(/\n$/, '')}
-                              </SyntaxHighlighter>
-                            ) : (
-                              <code className={className} {...props}>
-                                {children}
-                              </code>
-                            );
-                          },
-                        }}
-                      >
+                      <EnhancedMarkdown className="text-white">
                         {formData.description}
-                      </ReactMarkdown>
+                      </EnhancedMarkdown>
                     </div>
                   ) : (
                     <div className="text-center py-8">
@@ -453,6 +433,10 @@ Describe the primary goals and scope of this security audit...
 
 ## 📋 Expected Deliverables
 Detail what hunters should focus on and report formats...
+
+## 💻 Code References
+You can embed GitHub code directly in your description:
+https://github.com/owner/repo/blob/main/src/file.js#L10-L20
 
 ## 🎁 Bonus Objectives
 Additional areas of interest for extra bounty consideration..."

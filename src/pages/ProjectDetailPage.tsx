@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { useProjects } from '../hooks/useProjects';
 import { useIssues } from '../hooks/useIssues';
 import { useLeaderboard } from '../hooks/useLeaderboard';
@@ -14,6 +11,7 @@ import IssueForm from '../components/IssueForm';
 import Leaderboard from '../components/Leaderboard';
 import RewardBreakdown from '../components/RewardBreakdown';
 import OrganizationSelector from '../components/OrganizationSelector';
+import { EnhancedMarkdown } from '../components/GitHubCodeEmbed';
 
 export default function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -90,6 +88,35 @@ export default function ProjectDetailPage() {
     }
   };
 
+  const getNextVisibility = (current: 'public' | 'organization' | 'private'): 'public' | 'organization' | 'private' => {
+    switch (current) {
+      case 'public':
+        return 'organization';
+      case 'organization':
+        return 'private';
+      case 'private':
+        return 'public';
+      default:
+        return 'public';
+    }
+  };
+
+  const handleVisibilityToggle = async () => {
+    const nextVisibility = getNextVisibility(project.visibility);
+    await handleVisibilityChange(nextVisibility);
+  };
+
+  const getVisibilityConfig = (visibility: 'public' | 'organization' | 'private') => {
+    switch (visibility) {
+      case 'public':
+        return { icon: '🌍', title: 'Public', next: 'Organization' };
+      case 'organization':
+        return { icon: '🏢', title: 'Organization', next: 'Private' };
+      case 'private':
+        return { icon: '🔒', title: 'Private', next: 'Public' };
+    }
+  };
+
   const tabs = [
     { id: 'overview', name: 'Overview', icon: '📋' },
     { id: 'issues', name: 'Issues', icon: '🐛', count: issues.length },
@@ -107,46 +134,35 @@ export default function ProjectDetailPage() {
             <div className="flex items-center space-x-4 mb-4 justify-between">
               <div className="flex items-center space-x-4">
                 <h1 className="text-3xl font-bold text-white">{project.title}</h1>
-                <span
-                  className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-bold ${project.status === 'active'
-                    ? 'bg-gradient-to-r from-neon-green to-cyber-500 text-black animate-pulse-fast'
-                    : 'bg-gradient-to-r from-gray-600 to-gray-700 text-gray-300'
-                    }`}
-                >
-                  {project.status === 'active' ? '🟢 ACTIVE' : '🔴 CLOSED'}
-                </span>
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-700 text-gray-300">
-                  {project.visibility === 'public' && '🌍 Public'}
-                  {project.visibility === 'organization' && '🏢 Organization'}
-                  {project.visibility === 'private' && '🔒 Private'}
-                </span>
+                <div>
+                  <span
+                    className={`inline-flex items-center px-1 py-0.5 rounded-full text-xs font-bold scale-75 ${project.status === 'active'
+                      ? 'bg-gradient-to-r from-neon-green to-cyber-500 text-black animate-pulse-fast'
+                      : 'bg-gradient-to-r from-gray-600 to-gray-700 text-gray-300'
+                      }`}
+                  >
+                    {project.status === 'active' ? '🟢 ACTIVE' : '🔴 CLOSED'}
+                  </span>
+                  {!isOwner && <span className="inline-flex items-center px-1 py-0.5 rounded-full text-xs font-bold scale-75 bg-gray-700 text-gray-300">
+                    {project.visibility === 'public' && '🌍 Public'}
+                    {project.visibility === 'organization' && '🏢 Organization'}
+                    {project.visibility === 'private' && '🔒 Private'}
+                  </span>}
+                </div>
               </div>
 
               <div className="flex items-center space-x-4">
                 {isOwner && (
                   <div className="relative">
-                    <div className="flex space-x-2">
-                      {[
-                        { value: 'public', icon: '🌍', title: 'Public' },
-                        { value: 'organization', icon: '🏢', title: 'Organization' },
-                        { value: 'private', icon: '🔒', title: 'Private' }
-                      ].map((option) => (
-                        <button
-                          key={option.value}
-                          onClick={() => handleVisibilityChange(option.value as 'public' | 'organization' | 'private')}
-                          className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 ${project.visibility === option.value
-                            ? 'bg-gradient-to-r from-primary-600 to-cyber-600 text-white shadow-lg'
-                            : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
-                            }`}
-                        >
-                          <span>{option.icon}</span>
-                          <span>{option.title}</span>
-                          {project.visibility === option.value && (
-                            <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse-fast"></div>
-                          )}
-                        </button>
-                      ))}
-                    </div>
+                    <button
+                      onClick={handleVisibilityToggle}
+                      className="flex items-center justify-center space-x-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105 bg-gradient-to-r from-primary-600 to-cyber-600 text-white shadow-lg hover:from-primary-500 hover:to-cyber-500 w-36"
+                      title={`Click to change to ${getVisibilityConfig(project.visibility).next}`}
+                    >
+                      <span>{getVisibilityConfig(project.visibility).icon}</span>
+                      <span className="truncate">{getVisibilityConfig(project.visibility).title}</span>
+                      <span className="text-xs opacity-75">→</span>
+                    </button>
                   </div>
                 )}
 
@@ -154,10 +170,10 @@ export default function ProjectDetailPage() {
                   <div>
                     <button
                       onClick={() => handleStatusChange('closed')}
-                      className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
+                      className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white px-6 py-1.5 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
                     >
                       <span>🛑</span>
-                      <span>Terminate Mission</span>
+                      <span>Close</span>
                     </button>
                   </div>
                 )}
@@ -190,43 +206,9 @@ export default function ProjectDetailPage() {
             )}
 
             <div className="prose prose-sm max-w-none mb-6 prose-invert">
-              <ReactMarkdown
-                components={{
-                  code({ className, children, ...props }: any) {
-                    const match = /language-(\w+)/.exec(className || '');
-                    const inline = props.inline;
-                    return !inline && match ? (
-                      <SyntaxHighlighter
-                        style={tomorrow as any}
-                        language={match[1]}
-                        PreTag="div"
-                        {...props}
-                      >
-                        {String(children).replace(/\n$/, '')}
-                      </SyntaxHighlighter>
-                    ) : (
-                      <code className="bg-gray-800 text-neon-green px-1 py-0.5 rounded text-sm" {...props}>
-                        {children}
-                      </code>
-                    );
-                  },
-                  a({ children, href, ...props }: any) {
-                    return (
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyber-400 hover:text-cyber-300 underline"
-                        {...props}
-                      >
-                        {children}
-                      </a>
-                    );
-                  },
-                }}
-              >
+              <EnhancedMarkdown className="text-white">
                 {project.description}
-              </ReactMarkdown>
+              </EnhancedMarkdown>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

@@ -65,7 +65,6 @@ export async function fetchGitHubFileContent(
     // GitHub API로 파일 내용 가져오기
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`
 
-    console.log(`Fetching GitHub file: ${apiUrl}`)
 
     const response = await fetch(apiUrl, {
       headers: {
@@ -75,10 +74,21 @@ export async function fetchGitHubFileContent(
     })
 
     if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
       console.error(
-        `GitHub API error: ${response.status} ${response.statusText}`
-      )
-      return null
+        `GitHub API error: ${response.status} ${response.statusText}`,
+        errorData
+      );
+
+      if (response.status === 403 && errorData?.message?.includes('rate limit')) {
+        throw new Error('GitHub API rate limit exceeded. Please try again later.');
+      }
+
+      if (response.status === 404) {
+        throw new Error('File not found on GitHub. Please check the URL.');
+      }
+
+      throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json()
@@ -217,18 +227,15 @@ export async function embedGitHubCodeInMarkdown(
         const codeBlock = generateCodeBlock(snippet)
 
         // 원본 링크를 코드 블록으로 교체
-        const linkPattern = new RegExp(
-          escapeRegExp(
-            linkInfo.url +
-              (linkInfo.startLine
-                ? `#L${linkInfo.startLine}` +
-                  (linkInfo.endLine && linkInfo.endLine !== linkInfo.startLine
-                    ? `-L${linkInfo.endLine}`
-                    : "")
+        const originalLink = linkInfo.url +
+          (linkInfo.startLine
+            ? `#L${linkInfo.startLine}` +
+              (linkInfo.endLine && linkInfo.endLine !== linkInfo.startLine
+                ? `-L${linkInfo.endLine}`
                 : "")
-          ),
-          "g"
-        )
+            : "");
+
+        const linkPattern = new RegExp(escapeRegExp(originalLink), "g")
         result = result.replace(linkPattern, codeBlock)
       }
     } catch (error) {
