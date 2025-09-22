@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Embedding Test</title>
+</head>
+<body>
+    <h1>Testing GitHub Code Embedding</h1>
+
+    <h2>Test Cases:</h2>
+
+    <h3>1. Regular GitHub File Link</h3>
+    <p>https://github.com/supabase-community/supabase-by-example/blob/main/oauth-flow/react/src/lib/AuthProvider.tsx</p>
+
+    <h3>2. GitHub File Link with Line Range</h3>
+    <p>https://github.com/supabase-community/supabase-by-example/blob/main/oauth-flow/react/src/lib/AuthProvider.tsx#L31-L35</p>
+
+    <h3>3. GitHub File Link with Single Line</h3>
+    <p>https://github.com/supabase-community/supabase-by-example/blob/main/oauth-flow/react/src/lib/AuthProvider.tsx#L31</p>
+
+    <h3>4. Test Markdown with GitHub Link</h3>
+    <pre>
+## Bug Report
+
+I found a vulnerability in this code:
+
+https://github.com/supabase-community/supabase-by-example/blob/main/oauth-flow/react/src/lib/AuthProvider.tsx#L31-L35
+
+The code above shows improper authentication handling.
+    </pre>
+
+    <p><strong>Expected Result:</strong> When the above markdown is processed by our GitHubCodeEmbed component, the GitHub link should be automatically replaced with the actual code snippet from the repository.</p>
+
+    <p><strong>Features Implemented:</strong></p>
+    <ul>
+        <li>✅ GitHub URL parsing with regex</li>
+        <li>✅ GitHub API integration for fetching file contents</li>
+        <li>✅ Base64 decoding for GitHub API responses</li>
+        <li>✅ Line range extraction (#L31-L35)</li>
+        <li>✅ Language detection from file extension</li>
+        <li>✅ Integration with ReactMarkdown</li>
+        <li>✅ Enhanced markdown component for easy usage</li>
+        <li>✅ Error handling and fallback to original links</li>
+    </ul>
+</body>
+</html>
