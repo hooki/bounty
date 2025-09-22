@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { embedGitHubCodeInMarkdown } from '../utils/githubEmbedding';
@@ -68,6 +69,7 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
         </div>
         <div className="mt-3">
           <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
             components={{
               code({ className, children, ...props }: any) {
                 const match = /language-(\w+)/.exec(className || '');
@@ -100,6 +102,39 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
                   </a>
                 );
               },
+              // 테이블 스타일링 (에러 케이스용)
+              table({ children }) {
+                return (
+                  <div className="overflow-x-auto my-4">
+                    <table className="min-w-full divide-y divide-gray-700 bg-gray-800 rounded-lg shadow-lg">
+                      {children}
+                    </table>
+                  </div>
+                );
+              },
+              thead({ children }) {
+                return <thead className="bg-gray-700">{children}</thead>;
+              },
+              tbody({ children }) {
+                return <tbody className="bg-gray-800 divide-y divide-gray-700">{children}</tbody>;
+              },
+              tr({ children }) {
+                return <tr className="hover:bg-gray-700 transition-colors duration-200">{children}</tr>;
+              },
+              th({ children }) {
+                return (
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                    {children}
+                  </th>
+                );
+              },
+              td({ children }) {
+                return (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                    {children}
+                  </td>
+                );
+              },
             }}
           >
             {content}
@@ -112,6 +147,7 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
   return (
     <div className={className}>
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           code({ className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
@@ -162,6 +198,51 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
               );
             }
             return <p>{children}</p>;
+          },
+          // 테이블 스타일링
+          table({ children }) {
+            return (
+              <div className="overflow-x-auto my-4">
+                <table className="min-w-full divide-y divide-gray-700 bg-gray-800 rounded-lg shadow-lg">
+                  {children}
+                </table>
+              </div>
+            );
+          },
+          thead({ children }) {
+            return (
+              <thead className="bg-gray-700">
+                {children}
+              </thead>
+            );
+          },
+          tbody({ children }) {
+            return (
+              <tbody className="bg-gray-800 divide-y divide-gray-700">
+                {children}
+              </tbody>
+            );
+          },
+          tr({ children }) {
+            return (
+              <tr className="hover:bg-gray-700 transition-colors duration-200">
+                {children}
+              </tr>
+            );
+          },
+          th({ children }) {
+            return (
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                {children}
+              </th>
+            );
+          },
+          td({ children }) {
+            return (
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                {children}
+              </td>
+            );
           },
         }}
       >
