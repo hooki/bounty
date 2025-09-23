@@ -156,7 +156,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
         options: {
-          scopes: 'read:org repo',
+          scopes: 'read:org public_repo',
           redirectTo: window.location.origin,
         },
       });
