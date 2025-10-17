@@ -299,9 +299,6 @@ export default function ProjectDetailPage() {
       {/* Mission Control Tabs */}
       <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl">
         <div className="border-b border-gray-700">
-          <div className="flex items-center space-x-2 p-6 pb-0">
-            <h2 className="text-lg font-bold text-white">Mission Control Center</h2>
-          </div>
           <nav className="-mb-px flex space-x-8 px-6">
             {tabs.map((tab) => (
               <button
