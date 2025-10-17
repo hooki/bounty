@@ -29,6 +29,19 @@ export default function ProjectDetailPage() {
 
   const project = projects.find(p => p.id === id);
 
+  // GitHub 파일 URL 생성 함수
+  const getGitHubFileUrl = (filePath: string): string => {
+    if (!project) return '';
+
+    // repository_url에서 owner/repo 추출
+    // 예: https://github.com/owner/repo -> owner/repo
+    const match = project.repository_url.match(/github\.com\/([^/]+\/[^/]+)/);
+    if (!match) return '';
+
+    const repoPath = match[1];
+    return `https://github.com/${repoPath}/blob/${project.branch_name}/${filePath}`;
+  };
+
   useEffect(() => {
     if (!project && projects.length > 0) {
       navigate('/projects');
@@ -322,9 +335,19 @@ export default function ProjectDetailPage() {
                 </h3>
                 <div className="bg-gray-800/50 rounded-xl p-4 max-h-64 overflow-y-auto border border-gray-700">
                   {project.selected_files.map((file, index) => (
-                    <div key={index} className="text-sm font-mono text-gray-300 py-1 hover:text-white transition-colors">
-                      📄 {file}
-                    </div>
+                    <a
+                      key={index}
+                      href={getGitHubFileUrl(file)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-sm font-mono text-gray-300 py-1 hover:text-primary-400 hover:underline transition-colors group"
+                    >
+                      <span>📄</span>
+                      <span className="ml-1">{file}</span>
+                      <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
                   ))}
                 </div>
               </div>
