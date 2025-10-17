@@ -6,7 +6,25 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'pixel': ['"Press Start 2P"', 'cursive'],
+        'retro': ['"VT323"', 'monospace'],
+        'roboto': ['"Roboto"', 'sans-serif'],
+      },
       colors: {
+        pixel: {
+          bg: '#0f1419',
+          'bg-light': '#1a1f2e',
+          'bg-hover': '#252b3a',
+          border: '#3d4451',
+          text: '#e1e4e8',
+          'text-muted': '#8b949e',
+          accent: '#58a6ff',
+          'accent-hover': '#79c0ff',
+          success: '#56d364',
+          warning: '#d29922',
+          danger: '#f85149',
+        },
         primary: {
           50: '#f0f4ff',
           100: '#e0e7ff',
@@ -63,12 +81,20 @@ module.exports = {
           yellow: '#ffff00',
         }
       },
+      boxShadow: {
+        'pixel': '4px 4px 0px 0px rgba(0, 0, 0, 0.5)',
+        'pixel-sm': '2px 2px 0px 0px rgba(0, 0, 0, 0.5)',
+        'pixel-lg': '8px 8px 0px 0px rgba(0, 0, 0, 0.5)',
+        'pixel-neon': '0 0 10px #00ff41, 0 0 20px #00ff41',
+      },
       animation: {
         'bounce-slow': 'bounce 2s infinite',
         'pulse-fast': 'pulse 1s infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
         'float': 'float 3s ease-in-out infinite',
         'shimmer': 'shimmer 2.5s infinite',
+        'blink': 'blink 1s step-end infinite',
+        'pixel-shake': 'pixel-shake 0.5s ease-in-out',
       },
       keyframes: {
         glow: {
@@ -82,6 +108,15 @@ module.exports = {
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
+        },
+        blink: {
+          '0%, 50%': { opacity: '1' },
+          '51%, 100%': { opacity: '0' },
+        },
+        'pixel-shake': {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(-4px)' },
+          '75%': { transform: 'translateX(4px)' },
         },
       },
       backgroundImage: {

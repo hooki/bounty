@@ -60,16 +60,16 @@ export default function OrganizationSelector({
 
   return (
     <div className={`space-y-4 ${className}`}>
-      {/* 선택된 조직들을 칩/태그 형태로 표시 */}
+      {/* Selected Organizations */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-300">
+          <span className="text-sm font-medium text-pixel-text">
             Selected Organizations ({selectedOrgs.length})
           </span>
           {selectedOrgs.length > 0 && (
             <button
               onClick={clearAll}
-              className="text-xs text-gray-400 hover:text-red-400 transition-colors"
+              className="text-xs text-pixel-text-muted hover:text-pixel-danger transition-colors"
             >
               Clear all
             </button>
@@ -77,8 +77,8 @@ export default function OrganizationSelector({
         </div>
 
         {selectedOrgs.length === 0 ? (
-          <div className="p-4 bg-gray-800/50 rounded-lg border border-gray-700 text-center">
-            <span className="text-sm text-gray-400">
+          <div className="p-4 bg-pixel-bg border-2 border-pixel-border text-center">
+            <span className="text-sm text-pixel-text-muted">
               No organizations selected. Will use owner's organization by default.
             </span>
           </div>
@@ -87,18 +87,17 @@ export default function OrganizationSelector({
             {selectedOrgs.map(org => (
               <span
                 key={org}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
-                           bg-gradient-to-r from-gray-700 to-gray-800
-                           border border-gray-600 hover:border-gray-500
-                           transition-all duration-200"
+                className="inline-flex items-center gap-2 px-3 py-1.5
+                           bg-pixel-bg border-2 border-pixel-border hover:border-pixel-accent
+                           transition-colors"
               >
-                <span className="text-sm font-medium text-white">🏢 {org}</span>
+                <span className="text-sm font-medium text-pixel-text">{org}</span>
                 <button
                   onClick={() => removeOrganization(org)}
-                  className="text-gray-400 hover:text-red-400 transition-colors"
+                  className="text-pixel-text-muted hover:text-pixel-danger transition-colors"
                   title="Remove organization"
                 >
-                  ✕
+                  ×
                 </button>
               </span>
             ))}
@@ -106,7 +105,7 @@ export default function OrganizationSelector({
         )}
       </div>
 
-      {/* 검색 입력창 */}
+      {/* Search Input */}
       <div className="relative" ref={dropdownRef}>
         <div className="relative">
           <input
@@ -115,16 +114,13 @@ export default function OrganizationSelector({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => setShowDropdown(true)}
-            placeholder="🔍 Search and add organizations..."
-            className="w-full px-4 py-2 pl-10 bg-gray-800 border border-gray-600
-                       rounded-lg text-white placeholder-gray-400
-                       focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
-                       transition-all duration-300"
+            placeholder="Search organizations..."
+            className="w-full pixel-input text-base pl-10"
             disabled={loading}
           />
-          <div className="absolute left-3 top-2.5 text-gray-400">
+          <div className="absolute left-3 top-3 text-pixel-text-muted">
             {loading ? (
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-500"></div>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-pixel-accent"></div>
             ) : (
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -134,19 +130,19 @@ export default function OrganizationSelector({
           </div>
         </div>
 
-        {/* 검색 결과 드롭다운 */}
+        {/* Search Results Dropdown */}
         {showDropdown && searchTerm && filteredOrgs.length > 0 && (
-          <div className="absolute z-20 w-full mt-2 bg-gray-800 border border-gray-600
-                          rounded-lg shadow-lg max-h-48 overflow-y-auto">
+          <div className="absolute z-20 w-full mt-2 bg-pixel-bg border-2 border-pixel-border
+                          max-h-48 overflow-y-auto">
             {filteredOrgs.map(org => (
               <button
                 key={org}
                 onClick={() => addOrganization(org)}
-                className="w-full px-4 py-3 text-left hover:bg-gray-700
+                className="w-full px-4 py-3 text-left hover:bg-pixel-bg-light
                            transition-colors flex items-center justify-between group"
               >
-                <span className="text-white">🏢 {org}</span>
-                <span className="text-gray-400 group-hover:text-primary-400 text-sm">
+                <span className="text-pixel-text">{org}</span>
+                <span className="text-pixel-text-muted group-hover:text-pixel-accent text-sm">
                   Click to add
                 </span>
               </button>
@@ -154,11 +150,10 @@ export default function OrganizationSelector({
           </div>
         )}
 
-        {/* 검색 결과가 없을 때 */}
+        {/* No Results */}
         {showDropdown && searchTerm && filteredOrgs.length === 0 && !loading && (
-          <div className="absolute z-20 w-full mt-2 bg-gray-800 border border-gray-600
-                          rounded-lg shadow-lg px-4 py-3">
-            <span className="text-gray-400 text-sm">No organizations found matching "{searchTerm}"</span>
+          <div className="absolute z-20 w-full mt-2 bg-pixel-bg border-2 border-pixel-border px-4 py-3">
+            <span className="text-pixel-text-muted text-sm">No organizations found matching "{searchTerm}"</span>
           </div>
         )}
       </div>

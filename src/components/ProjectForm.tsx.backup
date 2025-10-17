@@ -109,33 +109,9 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
     }
   }, [formData.selected_files, formData.repository_url, formData.branch_name]);
 
-  const loadRepos = async (forceRefresh = false) => {
+  const loadRepos = async () => {
     try {
       setLoadingRepos(true);
-
-      // 로컬 스토리지에서 캐시된 데이터 확인
-      const cacheKey = 'github_repos_cache';
-      const cacheTimestampKey = 'github_repos_cache_timestamp';
-      const cacheExpiry = 1000 * 60 * 30; // 30분
-
-      if (!forceRefresh) {
-        const cachedRepos = localStorage.getItem(cacheKey);
-        const cachedTimestamp = localStorage.getItem(cacheTimestampKey);
-
-        if (cachedRepos && cachedTimestamp) {
-          const timestamp = parseInt(cachedTimestamp);
-          const now = Date.now();
-
-          // 캐시가 유효한 경우
-          if (now - timestamp < cacheExpiry) {
-            const repoList = JSON.parse(cachedRepos);
-            setRepos(repoList);
-            console.log('Loaded repositories from cache');
-            setLoadingRepos(false);
-            return;
-          }
-        }
-      }
 
       // 먼저 GitHub 인증 상태 확인
       await checkUserAuth();
@@ -143,10 +119,6 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
       // 저장소 목록 가져오기
       const repoList = await fetchUserRepos();
       setRepos(repoList);
-
-      // 로컬 스토리지에 캐시 저장
-      localStorage.setItem(cacheKey, JSON.stringify(repoList));
-      localStorage.setItem(cacheTimestampKey, Date.now().toString());
 
       console.log('Repository loading completed successfully');
     } catch (error) {
@@ -311,33 +283,34 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
 
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
-
-                <span>Title</span>
+              <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+                <span>🎯</span>
+                <span>Mission Codename</span>
               </label>
               <input
                 type="text"
                 required
                 value={formData.title}
                 onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
-                placeholder="Enter title (e.g., Operation SecureVault, Security Audit, etc.)"
+                className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
+                placeholder="Enter mission codename (e.g., Operation SecureVault)"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-pixel-text mb-4 flex items-center">
-                <span>Visibility</span>
+              <label className="block text-sm font-medium text-white mb-4 flex items-center space-x-2">
+                <span>🔐</span>
+                <span>Mission Visibility</span>
               </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
-                  { value: 'public', icon: '', title: 'Public', desc: 'All users' },
-                  { value: 'organization', icon: '', title: 'Invite', desc: 'Invited only' },
-                  { value: 'private', icon: '', title: 'Private', desc: 'Owner only' }
+                  { value: 'public', icon: '🌍', title: 'Public', desc: 'All users' },
+                  { value: 'organization', icon: '🏢', title: 'Invite', desc: 'Invited only' },
+                  { value: 'private', icon: '🔒', title: 'Private', desc: 'Owner only' }
                 ].map((option) => (
                   <label
                     key={option.value}
-                    className={`relative flex flex-col items-center justify-center text-center p-4 border-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 ${formData.visibility === option.value
+                    className={`relative flex flex-col p-4 border-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 ${formData.visibility === option.value
                       ? 'border-primary-500 bg-gradient-to-r from-primary-600/20 to-cyber-600/20 shadow-lg'
                       : 'border-gray-600 bg-gray-800/50 hover:border-gray-500 hover:bg-gray-700/50'
                       }`}
@@ -350,25 +323,28 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                       onChange={(e) => setFormData(prev => ({ ...prev, visibility: e.target.value as 'public' | 'organization' | 'private' }))}
                       className="absolute opacity-0"
                     />
-                    <div className="flex items-center justify-center space-x-2 mb-2">
-                      <span className="text-pixel-text font-medium">{option.title}</span>
+                    <div className="flex items-center space-x-3 mb-2">
+                      <span className="text-2xl">{option.icon}</span>
+                      <span className="text-white font-medium">{option.title}</span>
                       {formData.visibility === option.value && (
-                        <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse-fast"></div>
+                        <div className="ml-auto">
+                          <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse-fast"></div>
+                        </div>
                       )}
                     </div>
-                    <p className="text-xs text-pixel-text-muted leading-relaxed">{option.desc}</p>
+                    <p className="text-xs text-gray-400 leading-relaxed">{option.desc}</p>
                   </label>
                 ))}
               </div>
               <div className="mt-4 p-3 bg-gradient-to-r from-gray-700/50 to-gray-800/50 rounded-lg border border-gray-600">
-                <div className="flex items-center text-sm">
+                <div className="flex items-center space-x-2 text-sm">
                   <span className="text-lg">
-                    {formData.visibility === 'public' && ''}
-                    {formData.visibility === 'organization' && ''}
-                    {formData.visibility === 'private' && ''}
+                    {formData.visibility === 'public' && '🌍'}
+                    {formData.visibility === 'organization' && '🏢'}
+                    {formData.visibility === 'private' && '🔒'}
                   </span>
-                  <span className="text-pixel-text font-medium">Selected:</span>
-                  <span className="text-pixel-text">
+                  <span className="text-white font-medium">Selected:</span>
+                  <span className="text-gray-300">
                     {formData.visibility === 'public' && 'This mission will be visible to all users'}
                     {formData.visibility === 'organization' && 'This mission will only be visible to your organization members'}
                     {formData.visibility === 'private' && 'This mission will only be visible to you'}
@@ -380,11 +356,11 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
             {/* Organization Selector - visibility가 'organization'일 때만 표시 */}
             {formData.visibility === 'organization' && (
               <div>
-                <label className="block text-sm font-medium text-pixel-text mb-2 flex items-center">
-
+                <label className="block text-sm font-medium text-white mb-2 flex items-center space-x-2">
+                  <span>🏢</span>
                   <span>Allowed Organizations (Optional)</span>
                 </label>
-                <p className="text-xs text-pixel-text-muted mb-3">
+                <p className="text-xs text-gray-400 mb-3">
                   Leave empty to restrict to your organization only, or add specific organizations
                 </p>
                 <OrganizationSelector
@@ -398,96 +374,66 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
             )}
 
             {/* Mission Timeline */}
-            <div className="flex flex-col gap-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
-
-                    <span>Start Date (Optional)</span>
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.start_date}
-                    onChange={(e) => setFormData(prev => ({ ...prev, start_date: e.target.value }))}
-                    className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
-                    style={{
-                      colorScheme: 'dark'
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
-
-                    <span>End Date (Optional)</span>
-                  </label>
-                  <input
-                    type="date"
-                    value={formData.end_date}
-                    onChange={(e) => setFormData(prev => ({ ...prev, end_date: e.target.value }))}
-                    className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
-                    style={{
-                      colorScheme: 'dark'
-                    }}
-                  />
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+                  <span>🗓️</span>
+                  <span>Mission Start Date (Optional)</span>
+                </label>
+                <input
+                  type="date"
+                  value={formData.start_date}
+                  onChange={(e) => setFormData(prev => ({ ...prev, start_date: e.target.value }))}
+                  className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
+                  style={{
+                    colorScheme: 'dark'
+                  }}
+                />
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mb-4">
-                {[
-                  { label: '1 Week', days: 7 },
-                  { label: '2 Weeks', days: 14 },
-                  { label: '3 Weeks', days: 21 },
-                  { label: '4 Weeks', days: 28 },
-                  { label: '1 Month', days: 30 }
-                ].map((option) => (
-                  <button
-                    key={option.label}
-                    type="button"
-                    onClick={() => {
-                      const today = new Date();
-                      const endDate = new Date(today);
-                      endDate.setDate(today.getDate() + option.days);
-
-                      setFormData(prev => ({
-                        ...prev,
-                        start_date: today.toISOString().split('T')[0],
-                        end_date: endDate.toISOString().split('T')[0]
-                      }));
-                    }}
-                    className="px-3 py-2 text-xs font-pixel bg-pixel-bg border-2 border-pixel-border text-pixel-text hover:border-pixel-accent hover:bg-pixel-accent hover:text-white transition-all duration-200"
-                  >
-                    {option.label}
-                  </button>
-                ))}
+              <div>
+                <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+                  <span>🏁</span>
+                  <span>Mission End Date (Optional)</span>
+                </label>
+                <input
+                  type="date"
+                  value={formData.end_date}
+                  onChange={(e) => setFormData(prev => ({ ...prev, end_date: e.target.value }))}
+                  className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
+                  style={{
+                    colorScheme: 'dark'
+                  }}
+                />
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-4">
-                <label className="block text-sm font-medium text-pixel-text">
-                  Description
+                <label className="block text-sm font-medium text-white flex items-center space-x-2">
+                  <span>📝</span>
+                  <span>Mission Briefing</span>
                 </label>
-                <div className="flex gap-2">
+                <div className="flex space-x-2">
                   <button
                     type="button"
                     onClick={() => setShowPreview(false)}
-                    className={`px-4 py-2 text-sm font-pixel border-2 transition-colors ${!showPreview
-                      ? 'bg-pixel-accent text-white border-pixel-accent'
-                      : 'bg-pixel-bg text-pixel-text border-pixel-border hover:border-pixel-accent'
+                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${!showPreview
+                      ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
+                      : 'bg-gray-700 text-gray-300 hover:text-white hover:bg-gray-600'
                       }`}
                   >
-                    Edit
+                    ✏️ Edit
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowPreview(true)}
-                    className={`px-4 py-2 text-sm font-pixel border-2 transition-colors ${showPreview
-                      ? 'bg-pixel-accent text-white border-pixel-accent'
-                      : 'bg-pixel-bg text-pixel-text border-pixel-border hover:border-pixel-accent'
+                    className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${showPreview
+                      ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white'
+                      : 'bg-gray-700 text-gray-300 hover:text-white hover:bg-gray-600'
                       }`}
                   >
-                    Preview
+                    👁️ Preview
                   </button>
                 </div>
               </div>
@@ -496,14 +442,14 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                 <div className="min-h-[150px] p-4 border-2 border-gray-600 rounded-lg bg-gray-800/50">
                   {formData.description ? (
                     <div className="prose prose-sm max-w-none prose-invert">
-                      <EnhancedMarkdown className="text-pixel-text">
+                      <EnhancedMarkdown className="text-white">
                         {formData.description}
                       </EnhancedMarkdown>
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <div className="text-4xl mb-4"></div>
-                      <p className="text-pixel-text-muted italic">Your mission briefing preview will appear here...</p>
+                      <div className="text-4xl mb-4">📝</div>
+                      <p className="text-gray-400 italic">Your mission briefing preview will appear here...</p>
                     </div>
                   )}
                 </div>
@@ -513,71 +459,58 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                   required
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                  className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300 font-sans text-base antialiased"
-                  placeholder="Provide detailed mission briefing in markdown format:
+                  className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300 font-sans text-base antialiased"
+                  placeholder="📝 Provide detailed mission briefing in markdown format:
 
-## Mission Objective
+## 🎯 Mission Objective
 Describe the primary goals and scope of this security audit...
 
-## Security Focus Areas
+## 🔍 Security Focus Areas
 - Authentication and authorization systems
 - Input validation and sanitization
 - Data encryption and storage security
 
-## Expected Deliverables
+## 📋 Expected Deliverables
 Detail what hunters should focus on and report formats...
 
-## Code References
+## 💻 Code References
 You can embed GitHub code directly in your description:
 https://github.com/owner/repo/blob/main/src/file.js#L10-L20
 
-## Bonus Objectives
+## 🎁 Bonus Objectives
 Additional areas of interest for extra bounty consideration..."
                 />
               )}
 
-              <div className="flex items-center mt-3">
-                <span className="text-xs text-pixel-text-muted"> Supports markdown syntax</span>
+              <div className="flex items-center space-x-2 mt-3">
+                <span className="text-xs text-gray-400">📝 Supports markdown syntax</span>
                 <span className="text-xs text-gray-500">|</span>
-                <span className="text-xs text-pixel-text-muted"> Code blocks: ```language-name</span>
+                <span className="text-xs text-gray-400">💻 Code blocks: ```language-name</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Target Selection */}
-        <div className="bg-pixel-bg p-6 border-2 border-pixel-border">
-          <h3 className="text-lg font-pixel text-pixel-text mb-6 flex items-center">
-
+        <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-600">
+          <h3 className="text-lg font-medium text-white mb-6 flex items-center space-x-2">
+            <span>🎯</span>
             <span>Target Configuration</span>
           </h3>
 
           <div>
-            <div className="flex items-center justify-between mb-3">
-              <label className="block text-sm font-medium text-pixel-text flex items-center space-x-2">
-                <svg className="w-4 h-4 text-pixel-text" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
-                </svg>
-                <span>Repository</span>
-              </label>
-              <button
-                type="button"
-                onClick={() => loadRepos(true)}
-                disabled={loadingRepos}
-                className="px-3 py-1 text-xs font-pixel bg-pixel-bg border-2 border-pixel-border text-pixel-text hover:border-pixel-accent hover:bg-pixel-accent hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                <svg className={`w-3 h-3 ${loadingRepos ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Reload
-              </button>
-            </div>
+            <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
+              </svg>
+              <span>Repository</span>
+            </label>
             {loadingRepos ? (
               <div className="text-center py-8">
-                <div className="text-4xl mb-4 animate-bounce-slow"></div>
-                <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-pixel-accent mx-auto mb-4"></div>
-                <p className="text-pixel-text font-medium">Scanning repositories...</p>
-                <div className="mt-2 text-pixel-text-muted text-sm"> Loading GitHub targets</div>
+                <div className="text-4xl mb-4 animate-bounce-slow">🔍</div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-primary-500 mx-auto mb-4"></div>
+                <p className="text-white font-medium">Scanning repositories...</p>
+                <div className="mt-2 text-gray-400 text-sm">🔍 Loading GitHub targets</div>
               </div>
             ) : (
               <select
@@ -587,11 +520,11 @@ Additional areas of interest for extra bounty consideration..."
                   const repo = repos.find(r => r.id === parseInt(e.target.value));
                   if (repo) handleRepoSelect(repo);
                 }}
-                className="w-full px-4 py-3 pixel-input focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+                className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
               >
                 <option value="">Select target repository</option>
                 {repos.map(repo => (
-                  <option key={repo.id} value={repo.id} className="bg-gray-800 text-pixel-text">
+                  <option key={repo.id} value={repo.id} className="bg-gray-800 text-white">
                     {repo.full_name} {repo.description && `- ${repo.description}`}
                   </option>
                 ))}
@@ -602,26 +535,26 @@ Additional areas of interest for extra bounty consideration..."
 
         {/* Branch Selection */}
         {selectedRepo && (
-          <div className="bg-pixel-bg p-6 border-2 border-pixel-border">
-            <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
-
+          <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-600">
+            <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+              <span>🌿</span>
               <span>Target Branch</span>
             </label>
             {loadingBranches ? (
               <div className="text-center py-4">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-4 border-pixel-accent mx-auto mb-2"></div>
-                <p className="text-pixel-text-muted text-sm">Loading branches...</p>
+                <div className="animate-spin rounded-full h-6 w-6 border-b-4 border-primary-500 mx-auto mb-2"></div>
+                <p className="text-gray-400 text-sm">Loading branches...</p>
               </div>
             ) : (
               <select
                 required
                 value={formData.branch_name}
                 onChange={(e) => handleBranchSelect(e.target.value)}
-                className="w-full px-4 py-3 pixel-input focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+                className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
               >
                 <option value="">Select target branch</option>
                 {branches.map(branch => (
-                  <option key={branch.name} value={branch.name} className="bg-gray-800 text-pixel-text">
+                  <option key={branch.name} value={branch.name} className="bg-gray-800 text-white">
                     {branch.name}
                   </option>
                 ))}
@@ -632,20 +565,20 @@ Additional areas of interest for extra bounty consideration..."
 
         {/* File Selection */}
         {formData.branch_name && (
-          <div className="bg-pixel-bg p-6 border-2 border-pixel-border">
-            <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
-
+          <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-600">
+            <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+              <span>📁</span>
               <span>Mission Target Files</span>
             </label>
-            <p className="text-xs text-pixel-text-muted mb-4 bg-gray-700/50 p-3 rounded-lg border border-gray-600">
-              <strong>Tactical Instructions:</strong> Click on files to select individually, or click on directories to select all files within them.
+            <p className="text-xs text-gray-400 mb-4 bg-gray-700/50 p-3 rounded-lg border border-gray-600">
+              💡 <strong>Tactical Instructions:</strong> Click on files to select individually, or click on directories to select all files within them.
             </p>
             {loadingFiles ? (
               <div className="text-center py-8">
-                <div className="text-4xl mb-4 animate-bounce-slow"></div>
-                <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-pixel-accent mx-auto mb-4"></div>
-                <p className="text-pixel-text font-medium">Scanning target files...</p>
-                <div className="mt-2 text-pixel-text-muted text-sm"> Analyzing file structure</div>
+                <div className="text-4xl mb-4 animate-bounce-slow">📂</div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-primary-500 mx-auto mb-4"></div>
+                <p className="text-white font-medium">Scanning target files...</p>
+                <div className="mt-2 text-gray-400 text-sm">🔍 Analyzing file structure</div>
               </div>
             ) : (
               <FileTree
@@ -657,13 +590,13 @@ Additional areas of interest for extra bounty consideration..."
             )}
             <div className="mt-4 p-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-lg border border-gray-600">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                <div className="flex items-center">
-                  <span className="text-lg"></span>
-                  <strong className="text-pixel-text">Selected Targets: {formData.selected_files.length}</strong>
+                <div className="flex items-center space-x-2">
+                  <span className="text-lg">🎯</span>
+                  <strong className="text-white">Selected Targets: {formData.selected_files.length}</strong>
                 </div>
-                <div className="flex items-center">
-                  <span className="text-lg"></span>
-                  <strong className="text-pixel-text">
+                <div className="flex items-center space-x-2">
+                  <span className="text-lg">📊</span>
+                  <strong className="text-white">
                     Lines of Code: {calculatingLoc ? (
                       <span className="text-primary-400">Calculating...</span>
                     ) : (
@@ -673,16 +606,16 @@ Additional areas of interest for extra bounty consideration..."
                 </div>
               </div>
               {formData.selected_files.length > 0 && (
-                <div className="text-xs text-pixel-text">
+                <div className="text-xs text-gray-300">
                   <details>
-                    <summary className="cursor-pointer hover:text-pixel-text transition-colors duration-300 flex items-center">
-                      <span></span>
+                    <summary className="cursor-pointer hover:text-white transition-colors duration-300 flex items-center space-x-1">
+                      <span>👁️</span>
                       <span>View target list</span>
                     </summary>
                     <div className="mt-3 max-h-32 overflow-y-auto bg-gray-800/50 rounded p-3 border border-gray-600">
                       {formData.selected_files.map(file => (
-                        <div key={file} className="font-mono text-xs py-1 text-pixel-text hover:text-pixel-text transition-colors">
-                          {file}
+                        <div key={file} className="font-mono text-xs py-1 text-gray-300 hover:text-white transition-colors">
+                          📄 {file}
                         </div>
                       ))}
                     </div>
@@ -694,15 +627,15 @@ Additional areas of interest for extra bounty consideration..."
         )}
 
         {/* Bounty Configuration */}
-        <div className="bg-pixel-bg p-6 border-2 border-pixel-border">
-          <h3 className="text-lg font-pixel text-pixel-text mb-6 flex items-center">
-
+        <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-600">
+          <h3 className="text-lg font-medium text-white mb-6 flex items-center space-x-2">
+            <span>💰</span>
             <span>Reward Configuration</span>
           </h3>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-pixel-text mb-4 flex items-center">
-
+            <label className="block text-sm font-medium text-white mb-4 flex items-center space-x-2">
+              <span>💎</span>
               <span>Reward Currency</span>
             </label>
             <div className="grid grid-cols-2 gap-4 mb-6">
@@ -727,22 +660,22 @@ Additional areas of interest for extra bounty consideration..."
                   />
                   <div className="flex items-center space-x-3 mb-2">
                     <img src={option.image} alt={option.title} className="w-8 h-8 object-contain" />
-                    <span className="text-pixel-text font-medium">{option.title}</span>
+                    <span className="text-white font-medium">{option.title}</span>
                     {formData.reward_currency === option.value && (
                       <div className="ml-auto">
                         <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse-fast"></div>
                       </div>
                     )}
                   </div>
-                  <p className="text-xs text-pixel-text-muted leading-relaxed">{option.desc}</p>
+                  <p className="text-xs text-gray-400 leading-relaxed">{option.desc}</p>
                 </label>
               ))}
             </div>
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
-
+            <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
+              <span>🏦</span>
               <span>Total Reward Pool ({formData.reward_currency})</span>
             </label>
             <input
@@ -751,19 +684,19 @@ Additional areas of interest for extra bounty consideration..."
               min="1"
               value={formData.total_reward_pool}
               onChange={(e) => setFormData(prev => ({ ...prev, total_reward_pool: parseInt(e.target.value) }))}
-              className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+              className="w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
             />
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-pixel-text mb-4 flex items-center">
-
+            <label className="block text-sm font-medium text-white mb-4 flex items-center space-x-2">
+              <span>⚠️</span>
               <span>Threat Level Bounties</span>
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Object.entries(formData.reward_distribution).map(([severity, amount]) => (
                 <div key={severity} className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                  <label className="block text-sm font-medium text-pixel-text mb-3 capitalize flex items-center">
+                  <label className="block text-sm font-medium text-white mb-3 capitalize flex items-center space-x-2">
                     <span>{severity}</span>
                   </label>
                   <input
@@ -772,7 +705,7 @@ Additional areas of interest for extra bounty consideration..."
                     min="0"
                     value={amount}
                     onChange={(e) => handleRewardDistributionChange(severity as keyof typeof formData.reward_distribution, parseInt(e.target.value))}
-                    className="w-full px-3 py-2 pixel-input focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+                    className="w-full px-3 py-2 bg-gray-800 border-2 border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                   />
                 </div>
               ))}
@@ -781,21 +714,21 @@ Additional areas of interest for extra bounty consideration..."
 
           <div className="bg-gradient-to-r from-gray-700 to-gray-800 rounded-lg p-4 border border-gray-600">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-pixel-text flex items-center">
-
+              <span className="text-gray-300 flex items-center space-x-2">
+                <span>💳</span>
                 <span>Distribution Total:</span>
               </span>
-              <div className="flex items-center">
+              <div className="flex items-center space-x-2">
                 <span className={`font-bold text-lg ${totalDistribution === formData.total_reward_pool ? 'text-neon-green animate-pulse-fast' : 'text-red-400'}`}>
                   {totalDistribution.toLocaleString()} {formData.reward_currency}
                 </span>
-                <span className="text-pixel-text-muted">/</span>
-                <span className="text-pixel-text font-medium">{formData.total_reward_pool.toLocaleString()} {formData.reward_currency}</span>
+                <span className="text-gray-400">/</span>
+                <span className="text-white font-medium">{formData.total_reward_pool.toLocaleString()} {formData.reward_currency}</span>
               </div>
             </div>
             {totalDistribution !== formData.total_reward_pool && (
-              <div className="mt-2 text-xs text-red-400 flex items-center">
-
+              <div className="mt-2 text-xs text-red-400 flex items-center space-x-1">
+                <span>⚠️</span>
                 <span>Distribution must equal total pool amount</span>
               </div>
             )}
@@ -803,20 +736,31 @@ Additional areas of interest for extra bounty consideration..."
         </div>
 
         {/* Mission Control */}
-        <div className="flex flex-col sm:flex-row justify-end gap-4 pt-8 border-t-4 border-pixel-border">
+        <div className="flex justify-end space-x-4 pt-8 border-t border-gray-700">
           <button
             type="button"
             onClick={onCancel}
-            className="pixel-btn-secondary w-full sm:w-auto"
+            className="px-6 py-3 border-2 border-gray-600 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:border-gray-500 hover:bg-gray-800/50 transition-all duration-300 flex items-center space-x-2"
           >
-            Cancel
+            <span>❌</span>
+            <span>Abort Mission</span>
           </button>
           <button
             type="submit"
             disabled={loading || totalDistribution !== formData.total_reward_pool}
-            className="pixel-btn w-full sm:w-auto"
+            className="px-8 py-3 bg-gradient-to-r from-neon-green to-cyber-500 hover:from-neon-green/80 hover:to-cyber-400 border border-transparent rounded-lg text-sm font-bold text-black transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center space-x-2"
           >
-            {loading ? 'Deploying ...' : 'Deploy'}
+            {loading ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
+                <span>Deploying Mission...</span>
+              </>
+            ) : (
+              <>
+                <span>🚀</span>
+                <span>Deploy Mission</span>
+              </>
+            )}
           </button>
         </div>
       </form>

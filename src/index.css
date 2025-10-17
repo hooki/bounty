@@ -4,10 +4,82 @@
 
 @layer base {
   html {
-    @apply text-gray-900;
+    @apply text-white;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
   }
 
   body {
-    @apply bg-gray-50;
+    @apply bg-pixel-bg font-retro text-pixel-text;
+  }
+}
+
+@layer components {
+  /* Pixel Border Utility */
+  .pixel-border {
+    border: 3px solid currentColor;
+    border-image-source: none;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  .pixel-border-sm {
+    border: 2px solid currentColor;
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  .pixel-border-lg {
+    border: 4px solid currentColor;
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Pixel Button */
+  .pixel-btn {
+    @apply pixel-border px-6 py-3 font-pixel text-xs uppercase;
+    @apply transition-all duration-100 active:translate-x-1 active:translate-y-1;
+    @apply active:shadow-none;
+  }
+
+  .pixel-btn-primary {
+    @apply pixel-btn bg-pixel-accent text-white border-pixel-accent;
+    @apply hover:bg-pixel-accent-hover hover:border-pixel-accent-hover;
+  }
+
+  .pixel-btn-secondary {
+    @apply pixel-btn bg-pixel-bg-light text-pixel-text border-pixel-border;
+    @apply hover:bg-pixel-bg-hover hover:border-pixel-accent;
+  }
+
+  /* Pixel Card */
+  .pixel-card {
+    @apply pixel-border bg-pixel-bg-light border-pixel-border;
+    @apply p-4;
+  }
+
+  /* Pixel Input */
+  .pixel-input {
+    @apply pixel-border-sm bg-pixel-bg border-pixel-border;
+    @apply px-3 py-2 text-pixel-text font-retro;
+    @apply focus:outline-none focus:border-pixel-accent;
+  }
+
+  /* Pixel Select Dropdown */
+  .pixel-input option {
+    @apply bg-pixel-bg text-pixel-text;
+    @apply py-2 px-3;
+  }
+
+  .pixel-input option:checked {
+    @apply bg-pixel-accent text-white;
+  }
+
+  .pixel-input option:hover {
+    @apply bg-pixel-bg-light;
+  }
+
+  /* Pixel Badge */
+  .pixel-badge {
+    @apply inline-block px-3 py-1 font-pixel text-[8px] uppercase;
+    @apply pixel-border-sm;
   }
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useDashboard } from '../hooks/useDashboard';
@@ -5,6 +6,7 @@ import { useDashboard } from '../hooks/useDashboard';
 export default function DashboardPage() {
   const { user } = useAuth();
   const { stats, loading, error } = useDashboard();
+  const [selectedCurrency, setSelectedCurrency] = useState<'TON' | 'USDC'>('TON');
 
   if (error) {
     return (
@@ -19,108 +21,114 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Hero Section with Gaming Theme */}
-      <div className="relative bg-gradient-gaming rounded-xl shadow-2xl p-8 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10">
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="text-6xl animate-float">🎮</div>
-            <div>
-              <h1 className="text-3xl font-bold text-white mb-2">
-                Welcome back, Hunter {user?.user_metadata?.user_name}!
-              </h1>
-              <p className="text-white/90 text-lg">
-                🚀 Ready to hunt some bugs? Your cybersecurity adventure awaits!
-              </p>
-            </div>
-          </div>
-
-          {/* Gaming Style Progress Bar */}
-          {/* <div className="mt-6 bg-black/30 rounded-full p-1">
-            <div className="bg-gradient-to-r from-neon-green to-neon-blue h-3 rounded-full w-3/4 animate-pulse-fast"></div>
-          </div>
-          <p className="text-white/80 text-sm mt-2">🏆 Bug Hunter Level: Elite • Next: Legend (150 XP needed)</p> */}
+      {/* Hero Section */}
+      <div className="pixel-card bg-pixel-bg-light border-pixel-border p-8">
+        <div>
+          <h1 className="text-xl font-pixel text-pixel-text mb-3">
+            Welcome back, {user?.user_metadata?.user_name}!
+          </h1>
+          <p className="text-pixel-text-muted text-base">
+            Ready to hunt some bugs? Your cybersecurity adventure awaits.
+          </p>
         </div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-4 right-4 text-4xl animate-bounce-slow">⚡</div>
-        <div className="absolute bottom-4 right-12 text-3xl animate-float" style={{ animationDelay: '1s' }}>💰</div>
-        <div className="absolute top-1/2 right-8 text-2xl animate-float" style={{ animationDelay: '2s' }}>🔥</div>
       </div>
 
-      {/* Gaming Stats Cards */}
+      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Active Missions Card */}
-        <div className="group relative bg-gradient-to-br from-primary-600 to-primary-800 rounded-xl shadow-xl p-6 transform hover:scale-105 transition-all duration-300 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-5xl animate-pulse-fast">🎯</div>
-              <div className="text-white/80 text-xs bg-white/20 px-2 py-1 rounded-full">MISSIONS</div>
-            </div>
-            <div>
-              <p className="text-white/90 text-sm font-medium mb-1">Active Missions</p>
-              <div className="flex items-end space-x-2">
-                <p className="text-3xl font-bold text-white">
-                  {loading ? '...' : stats.activeProjects}
-                </p>
-                <div className="text-lg">🏆</div>
-              </div>
+        <div className="pixel-card bg-pixel-bg-light border-pixel-border hover:border-pixel-accent transition-all duration-200">
+          <div className="mb-3">
+            <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">Active Missions</div>
+            <div className="text-2xl font-pixel text-pixel-text">
+              {loading ? '...' : stats.activeProjects}
             </div>
           </div>
         </div>
 
         {/* Bug Hunt Score Card */}
-        <div className="group relative bg-gradient-to-br from-gaming-600 to-gaming-800 rounded-xl shadow-xl p-6 transform hover:scale-105 transition-all duration-300 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-5xl animate-bounce-slow">🐛</div>
-              <div className="text-white/80 text-xs bg-white/20 px-2 py-1 rounded-full">HUNT SCORE</div>
-            </div>
-            <div>
-              <p className="text-white/90 text-sm font-medium mb-1">Issues Discovered</p>
-              <div className="flex items-end space-x-2">
-                <p className="text-3xl font-bold text-white">
-                  {loading ? '...' : stats.reportedIssues}
-                </p>
-                <div className="text-lg">🔍</div>
-              </div>
+        <div className="pixel-card bg-pixel-bg-light border-pixel-border hover:border-pixel-accent transition-all duration-200">
+          <div className="mb-3">
+            <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">Issues Discovered</div>
+            <div className="text-2xl font-pixel text-pixel-text">
+              {loading ? '...' : stats.reportedIssues}
             </div>
           </div>
         </div>
 
         {/* Bounty Rewards Card */}
-        <div className="group relative bg-gradient-to-br from-cyber-600 to-cyber-800 rounded-xl shadow-xl p-6 transform hover:scale-105 transition-all duration-300 overflow-hidden animate-glow">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          <div className="relative z-10">
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-5xl animate-float">💎</div>
-              <div className="text-white/80 text-xs bg-white/20 px-2 py-1 rounded-full">BOUNTY</div>
-            </div>
-            <div>
-              <p className="text-white/90 text-sm font-medium mb-1">Expected Bounty</p>
-              <div className="flex items-end space-x-2">
-                <p className="text-3xl font-bold text-white">
-                  {loading ? '$...' : `$${stats.expectedReward.toLocaleString()}`}
-                </p>
-                <div className="text-lg">⚡</div>
+        <div className="pixel-card bg-pixel-bg-light border-pixel-border hover:border-pixel-accent transition-all duration-200">
+          <div className="mb-3">
+            <div className="flex items-center justify-between mb-2">
+              <div className="text-xs text-pixel-text-muted uppercase tracking-wider">Bounty Status</div>
+              <div className="flex items-center gap-1 bg-pixel-bg border border-pixel-border">
+                <button
+                  onClick={() => setSelectedCurrency('TON')}
+                  className={`px-3 py-1 text-xs font-pixel transition-colors ${
+                    selectedCurrency === 'TON'
+                      ? 'bg-pixel-accent text-white'
+                      : 'text-pixel-text-muted hover:text-pixel-text'
+                  }`}
+                >
+                  TON
+                </button>
+                <button
+                  onClick={() => setSelectedCurrency('USDC')}
+                  className={`px-3 py-1 text-xs font-pixel transition-colors ${
+                    selectedCurrency === 'USDC'
+                      ? 'bg-pixel-accent text-white'
+                      : 'text-pixel-text-muted hover:text-pixel-text'
+                  }`}
+                >
+                  USDC
+                </button>
               </div>
             </div>
+            <div className="text-2xl font-pixel text-pixel-accent mb-2 flex items-center gap-2">
+              {loading ? (
+                '...'
+              ) : (
+                <>
+                  <span>
+                    {selectedCurrency === 'TON'
+                      ? stats.totalBountyTON.toLocaleString()
+                      : stats.totalBountyUSDC.toLocaleString()}
+                  </span>
+                  <img
+                    src={selectedCurrency === 'USDC' ? '/images/usdc.png' : '/images/ton.svg'}
+                    alt={selectedCurrency}
+                    className="w-6 h-6"
+                  />
+                </>
+              )}
+            </div>
+            <p className="text-pixel-text-muted text-sm">
+              {loading ? (
+                'Loading...'
+              ) : (
+                <>
+                  Earned{' '}
+                  {selectedCurrency === 'TON'
+                    ? stats.earnedBountyTON.toLocaleString()
+                    : stats.earnedBountyUSDC.toLocaleString()}{' '}
+                  + Pending{' '}
+                  {selectedCurrency === 'TON'
+                    ? stats.pendingBountyTON.toLocaleString()
+                    : stats.pendingBountyUSDC.toLocaleString()}
+                </>
+              )}
+            </p>
           </div>
         </div>
       </div>
 
 
-      {/* Gaming Action Center */}
-      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl overflow-hidden">
-        <div className="relative px-6 py-4 bg-gradient-to-r from-primary-600/20 to-cyber-600/20 border-b border-gray-700">
-          <h2 className="text-xl font-bold text-white flex items-center space-x-2">
-            <span>⚔️</span>
-            <span>Participant Command Center</span>
-            <span className="animate-pulse">⚔️</span>
+      {/* Action Center */}
+      <div className="pixel-card bg-pixel-bg-light border-pixel-border">
+        <div className="px-6 py-4 border-b-4 border-pixel-border">
+          <h2 className="text-lg font-pixel text-pixel-text">
+            Participant Command Center
           </h2>
-          <p className="text-gray-300 text-sm mt-1">Choose your next adventure, brave hunter!</p>
+          <p className="text-pixel-text-muted text-base mt-2">Choose your next adventure</p>
         </div>
 
         <div className="p-6">
@@ -128,17 +136,16 @@ export default function DashboardPage() {
             {/* Create Mission Card */}
             <Link
               to="/projects"
-              className="group relative bg-gradient-to-br from-primary-500/20 to-primary-700/20 border-2 border-primary-500/30 rounded-xl p-6 hover:border-primary-400 hover:shadow-2xl hover:shadow-primary-500/25 transition-all duration-300 transform hover:scale-105"
+              className="group pixel-card bg-pixel-bg border-pixel-border hover:border-pixel-accent transition-all duration-200"
             >
               <div className="text-center">
-                <div className="text-6xl mb-4 group-hover:animate-bounce-slow">🚀</div>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300">
+                <h3 className="text-base font-pixel text-pixel-text mb-3 group-hover:text-pixel-accent">
                   Launch New Mission
                 </h3>
-                <p className="text-gray-300 text-sm">
-                  🎯 Deploy a new bug hunting expedition. Connect your GitHub repository and start your cybersecurity quest!
+                <p className="text-pixel-text-muted text-base mb-4">
+                  Deploy a new bug hunting expedition. Connect your GitHub repository and start your quest.
                 </p>
-                <div className="mt-4 inline-flex items-center text-primary-400 text-sm font-medium">
+                <div className="inline-flex items-center text-pixel-accent text-base">
                   <span>Deploy Mission</span>
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
@@ -148,34 +155,22 @@ export default function DashboardPage() {
             {/* Browse Missions Card */}
             <Link
               to="/issues"
-              className="group relative bg-gradient-to-br from-cyber-500/20 to-cyber-700/20 border-2 border-cyber-500/30 rounded-xl p-6 hover:border-cyber-400 hover:shadow-2xl hover:shadow-cyber-500/25 transition-all duration-300 transform hover:scale-105"
+              className="group pixel-card bg-pixel-bg border-pixel-border hover:border-pixel-accent transition-all duration-200"
             >
               <div className="text-center">
-                <div className="text-6xl mb-4 group-hover:animate-pulse-fast">🕵️</div>
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyber-300">
+                <h3 className="text-base font-pixel text-pixel-text mb-3 group-hover:text-pixel-accent">
                   Join Active Hunts
                 </h3>
-                <p className="text-gray-300 text-sm">
-                  🔍 Explore ongoing missions and discover security vulnerabilities. Earn bounties for your discoveries!
+                <p className="text-pixel-text-muted text-base mb-4">
+                  Explore ongoing missions and discover security vulnerabilities. Earn bounties for your discoveries.
                 </p>
-                <div className="mt-4 inline-flex items-center text-cyber-400 text-sm font-medium">
+                <div className="inline-flex items-center text-pixel-accent text-base">
                   <span>Start Hunting</span>
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
             </Link>
           </div>
-
-          {/* Quick Access Buttons
-          <div className="mt-8 flex flex-wrap gap-4 justify-center">
-            <Link
-              to="/issues"
-              className="bg-gradient-to-r from-gaming-600 to-gaming-700 hover:from-gaming-500 hover:to-gaming-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
-            >
-              <span>🐛</span>
-              <span>View All Bugs</span>
-            </Link>
-          </div> */}
         </div>
       </div>
     </div>

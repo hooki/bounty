@@ -47,8 +47,8 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
     return (
       <div className={`flex items-center justify-center py-8 ${className || ''}`}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-500 mx-auto mb-2"></div>
-          <p className="text-sm text-gray-400">🔗 Embedding GitHub code...</p>
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-pixel-accent mx-auto mb-2"></div>
+          <p className="text-sm text-pixel-text-muted">Loading code...</p>
         </div>
       </div>
     );
@@ -56,13 +56,13 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
 
   if (error) {
     return (
-      <div className={`border-l-4 border-yellow-500 bg-yellow-900/50 p-4 rounded ${className || ''}`}>
+      <div className={`border-l-4 border-pixel-warning bg-pixel-bg p-4 ${className || ''}`}>
         <div className="flex">
           <div className="ml-3">
-            <p className="text-sm text-yellow-300">
-              ⚠️ {error}
+            <p className="text-sm text-pixel-text">
+              {error}
             </p>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-pixel-text-muted mt-1">
               Showing original content without GitHub code embedding.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
                     {String(children).replace(/\n$/, '')}
                   </SyntaxHighlighter>
                 ) : (
-                  <code className="bg-gray-800 text-neon-green px-1 py-0.5 rounded text-sm" {...props}>
+                  <code className="bg-pixel-bg text-pixel-accent px-1 py-0.5 text-sm" {...props}>
                     {children}
                   </code>
                 );
@@ -95,7 +95,7 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cyber-400 hover:text-cyber-300 underline"
+                    className="text-pixel-accent hover:text-pixel-accent-hover underline"
                     {...props}
                   >
                     {children}

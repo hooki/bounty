@@ -52,23 +52,23 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'critical': return 'bg-gradient-to-r from-red-600 to-red-700 text-white animate-pulse-fast';
-      case 'high': return 'bg-gradient-to-r from-orange-600 to-orange-700 text-white';
-      case 'medium': return 'bg-gradient-to-r from-yellow-600 to-yellow-700 text-white';
-      case 'low': return 'bg-gradient-to-r from-green-600 to-green-700 text-white';
-      default: return 'bg-gradient-to-r from-gray-600 to-gray-700 text-white';
+      case 'critical': return 'bg-pixel-danger text-white border border-pixel-danger';
+      case 'high': return 'bg-orange-600 text-white border border-orange-600';
+      case 'medium': return 'bg-pixel-warning text-pixel-bg border border-pixel-warning';
+      case 'low': return 'bg-pixel-success text-white border border-pixel-success';
+      default: return 'bg-pixel-bg-light text-pixel-text border border-pixel-border';
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'open': return 'bg-gradient-to-r from-cyber-600 to-cyber-700 text-white animate-pulse-fast';
-      case 'in_progress': return 'bg-gradient-to-r from-primary-600 to-primary-700 text-white';
-      case 'solved': return 'bg-gradient-to-r from-neon-green to-green-600 text-black';
-      case 'acknowledged': return 'bg-gradient-to-r from-gaming-600 to-gaming-700 text-white';
-      case 'invalid': return 'bg-gradient-to-r from-gray-600 to-gray-700 text-gray-300';
-      case 'duplicated': return 'bg-gradient-to-r from-yellow-600 to-yellow-700 text-white';
-      default: return 'bg-gradient-to-r from-gray-600 to-gray-700 text-white';
+      case 'open': return 'bg-pixel-accent text-white border border-pixel-accent';
+      case 'in_progress': return 'bg-blue-600 text-white border border-blue-600';
+      case 'solved': return 'bg-pixel-success text-white border border-pixel-success';
+      case 'acknowledged': return 'bg-green-700 text-white border border-green-700';
+      case 'invalid': return 'bg-pixel-bg-light text-pixel-text-muted border border-pixel-border';
+      case 'duplicated': return 'bg-yellow-600 text-white border border-yellow-600';
+      default: return 'bg-pixel-bg-light text-pixel-text border border-pixel-border';
     }
   };
 
@@ -86,65 +86,63 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
 
   if (loading) {
     return (
-      <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl p-6">
+      <div className="pixel-card p-6">
         <div className="text-center py-8">
-          <div className="text-5xl mb-4 animate-bounce-slow">🐛</div>
-          <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-primary-500 mx-auto mb-4"></div>
-          <p className="mt-4 text-white font-medium">Scanning for bugs...</p>
-          <div className="mt-2 text-gray-400 text-sm">🔍 Loading hunt results</div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-pixel-accent mx-auto mb-4"></div>
+          <p className="mt-4 text-pixel-text font-medium">Loading issues...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-xl shadow-2xl">
-      {/* Bug Hunt Control Panel */}
-      <div className="p-6 border-b border-gray-700">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-          <div className="flex items-center space-x-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">🔄 Sort</label>
+    <div className="pixel-card">
+      {/* Control Panel */}
+      <div className="p-6 border-b-4 border-pixel-border">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between space-y-4 sm:space-y-0 gap-4">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 flex-1">
+            <div className="flex-1 sm:flex-initial">
+              <label className="block text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="pixel-input text-sm w-full"
               >
                 <option value="created_at">Latest</option>
-                <option value="severity">Threat Level</option>
-                <option value="status">Hunt Status</option>
+                <option value="severity">Severity</option>
+                <option value="status">Status</option>
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">📊 Status</label>
+            <div className="flex-1 sm:flex-initial">
+              <label className="block text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as typeof filterStatus)}
-                className="px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="pixel-input text-sm w-full"
               >
-                <option value="all">All Hunts</option>
-                <option value="open">🔓 Open</option>
-                <option value="in_progress">⏳ In Progress</option>
-                <option value="solved">✅ Eliminated</option>
-                <option value="acknowledged">🎯 Confirmed</option>
-                <option value="invalid">❌ Invalid</option>
-                <option value="duplicated">🔄 Duplicate</option>
+                <option value="all">All</option>
+                <option value="open">Open</option>
+                <option value="in_progress">In Progress</option>
+                <option value="solved">Solved</option>
+                <option value="acknowledged">Acknowledged</option>
+                <option value="invalid">Invalid</option>
+                <option value="duplicated">Duplicated</option>
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">⚠️ Threat Level</label>
+            <div className="flex-1 sm:flex-initial">
+              <label className="block text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">Severity</label>
               <select
                 value={filterSeverity}
                 onChange={(e) => setFilterSeverity(e.target.value as typeof filterSeverity)}
-                className="px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="pixel-input text-sm w-full"
               >
-                <option value="all">All Levels</option>
-                <option value="critical">🔴 Critical</option>
-                <option value="high">🟠 High</option>
-                <option value="medium">🟡 Medium</option>
-                <option value="low">🟢 Low</option>
+                <option value="all">All</option>
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
               </select>
             </div>
           </div>
@@ -152,29 +150,27 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
           {showReportButton && onReportClick && (
             <button
               onClick={onReportClick}
-              className="bg-gradient-to-r from-neon-pink to-gaming-500 hover:from-neon-pink/80 hover:to-gaming-400 text-white px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
+              className="pixel-btn-primary text-base w-full sm:w-auto"
             >
-              <span>🔍</span>
-              <span>Report Discovery</span>
+              Report Issue
             </button>
           )}
         </div>
       </div>
 
-      {/* Bug Hunt Results */}
-      <div className="divide-y divide-gray-700">
+      {/* Results */}
+      <div className="divide-y-4 divide-pixel-border">
         {filteredAndSortedIssues.length === 0 ? (
-          <div className="p-6 text-center">
-            <div className="text-6xl mb-4">🕵️</div>
-            <p className="text-gray-400">{issues.length === 0 ? 'No issues discovered yet.' : 'No bugs match the hunt criteria.'}</p>
-            <p className="text-gray-500 text-sm mt-2">Start hunting for vulnerabilities!</p>
+          <div className="p-12 text-center">
+            <p className="text-pixel-text-muted text-lg mb-2">{issues.length === 0 ? 'No issues found' : 'No matching issues'}</p>
+            <p className="text-pixel-text-muted text-sm">Try adjusting your filters</p>
           </div>
         ) : (
           filteredAndSortedIssues.map((issue) => (
             <div
               key={issue.id}
               onClick={() => onIssueClick(issue)}
-              className="group p-6 hover:bg-gray-800/50 cursor-pointer transition-all duration-300 transform hover:scale-[1.02]"
+              className="group p-6 hover:bg-pixel-bg-light cursor-pointer transition-colors"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
@@ -188,10 +184,6 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
                     </div>
                     <div className="flex gap-2">
                       {issue.status !== 'invalid' && <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${getSeverityColor(issue.severity)}`}>
-                        {issue.severity === 'critical' && '🔴'}
-                        {issue.severity === 'high' && '🟠'}
-                        {issue.severity === 'medium' && '🟡'}
-                        {issue.severity === 'low' && '🟢'}
                         {issue.severity.toUpperCase()}
                       </span>}
                       <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${getStatusColor(issue.status)}`}>

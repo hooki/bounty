@@ -50,28 +50,19 @@ export default function ProjectsPage() {
   return (
     <div className="space-y-6">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-primary-600 via-cyber-600 to-gaming-600 rounded-xl shadow-2xl p-8 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <div className="text-6xl animate-pulse-fast">🎯</div>
-            <div>
-              <h1 className="text-3xl font-bold text-white mb-2">Mission Control</h1>
-              <p className="text-white/90 text-lg">Deploy and manage your cybersecurity missions</p>
-            </div>
+      <div className="pixel-card bg-pixel-bg-light border-pixel-border p-8">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-pixel text-pixel-text mb-3">Mission Control</h1>
+            <p className="text-pixel-text-muted text-base">Deploy and manage your cybersecurity missions</p>
           </div>
           <button
             onClick={() => setShowForm(true)}
-            className="bg-gradient-to-r from-neon-green to-cyber-500 hover:from-neon-green/80 hover:to-cyber-400 text-black px-6 py-3 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center space-x-2 animate-glow"
+            className="pixel-btn-primary text-base"
           >
-            <span>🚀</span>
-            <span>Deploy New Mission</span>
+            Deploy New Mission
           </button>
         </div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-4 right-20 text-3xl animate-float">⚡</div>
-        <div className="absolute bottom-4 right-32 text-2xl animate-bounce-slow">💎</div>
       </div>
 
       <ProjectList

@@ -14,6 +14,7 @@ interface LeaderboardEntry {
   low_issues: number;
   valid_issues: number;
   estimated_reward: number;
+  reward_currency?: string;
 }
 
 export function useLeaderboard(projectId: string) {
@@ -93,18 +94,20 @@ export function useLeaderboard(projectId: string) {
 
       // 보상 계산을 위한 프로젝트 정보와 총 이슈 통계를 먼저 조회
       let projectRewardDistribution: Record<string, number> = {};
+      let projectRewardCurrency: string = 'TON';
       let severityTotals: Record<string, number> = {};
 
       if (leaderboardData.length > 0) {
         // 프로젝트의 보상 분배 정보 조회
         const { data: project } = await supabase
           .from('projects')
-          .select('reward_distribution')
+          .select('reward_distribution, reward_currency')
           .eq('id', projectId)
           .single();
 
         if (project) {
           projectRewardDistribution = project.reward_distribution as Record<string, number>;
+          projectRewardCurrency = project.reward_currency || 'TON';
         }
 
         // 해당 프로젝트의 이슈만 조회
@@ -153,6 +156,7 @@ export function useLeaderboard(projectId: string) {
         return {
           ...entry,
           estimated_reward: Math.round(estimatedReward),
+          reward_currency: projectRewardCurrency,
         };
       });
 
