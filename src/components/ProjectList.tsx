@@ -32,6 +32,12 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
       return matchesStatus && matchesSearch;
     })
     .sort((a, b) => {
+      // 먼저 status로 정렬 (active가 먼저, closed가 나중)
+      if (a.status !== b.status) {
+        return a.status === 'active' ? -1 : 1;
+      }
+
+      // 같은 status 내에서 선택한 기준으로 정렬
       switch (sortBy) {
         case 'total_reward_pool':
           return b.total_reward_pool - a.total_reward_pool;
@@ -114,24 +120,22 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
             <div
               key={project.id}
               onClick={() => onProjectClick(project)}
-              className="group p-6 hover:bg-gray-800/50 cursor-pointer transition-all duration-300"
+              className={`group p-6 cursor-pointer transition-all duration-300 ${
+                project.status === 'closed'
+                  ? 'opacity-50 grayscale'
+                  : 'hover:bg-gray-800/50'
+              }`}
             >
               <div className="flex items-center justify-between">
                 {/* 프로젝트 정보 - 왼쪽 영역 (고정 너비) */}
                 <div className="flex items-center space-x-3 min-w-0" style={{ width: 'calc(100% - 576px)' }}>
-                  <img src="https://avatars.githubusercontent.com/u/30994093?s=48&v=4" alt="avatar" className="h-5 w-5 rounded-full flex-shrink-0" />
-                  <span className="text-sm text-gray-400 flex-shrink-0">{project.repository_url.split('/').pop()}</span>
-                  <h3 className="text-lg font-medium text-white group-hover:text-primary-300 truncate min-w-0">
-                    {project.title}
-                  </h3>
-                  <span
-                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium flex-shrink-0 ${project.status === 'active'
-                      ? 'bg-gradient-to-r from-neon-green to-cyber-500 text-black animate-pulse-fast'
-                      : 'bg-gradient-to-r from-gray-600 to-gray-700 text-gray-300'
-                      }`}
-                  >
-                    {project.status === 'active' ? '🟢 ACTIVE' : '🔴 CLOSED'}
-                  </span>
+                  <img src='/images/ton.svg' alt="tokamak-network" className="w-8 h-8 object-contain" />
+                  <div className="flex flex-col">
+                    <span className="text-sm text-gray-400 flex-shrink-0">{project.repository_url.split('/').pop()}</span>
+                    <h3 className="text-lg font-medium text-white group-hover:text-primary-300 truncate min-w-0">
+                      {project.title}
+                    </h3>
+                  </div>
                 </div>
 
                 {/* 리워드 풀, 시작 날짜, 종료 날짜 - 고정 너비 컬럼들 */}
