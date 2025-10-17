@@ -47,6 +47,7 @@ interface ProjectFormData {
     medium: number;
     low: number;
   };
+  reward_currency: 'TON' | 'USDC';
   total_lines_of_code?: number;
   visibility: 'public' | 'organization' | 'private';
   allowed_organizations: string[];
@@ -77,6 +78,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
       medium: 1500,
       low: 500,
     },
+    reward_currency: 'TON',
     total_lines_of_code: 0,
     visibility: 'organization',
     allowed_organizations: [],
@@ -636,9 +638,49 @@ Additional areas of interest for extra bounty consideration..."
           </h3>
 
           <div className="mb-6">
+            <label className="block text-sm font-medium text-white mb-4 flex items-center space-x-2">
+              <span>💎</span>
+              <span>Reward Currency</span>
+            </label>
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              {[
+                { value: 'TON', image: '/images/ton.svg', title: 'TON', desc: 'Tokamak Network' },
+                { value: 'USDC', image: '/images/usdc.png', title: 'USDC', desc: 'USD Coin' }
+              ].map((option) => (
+                <label
+                  key={option.value}
+                  className={`relative flex flex-col p-4 border-2 rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 ${formData.reward_currency === option.value
+                    ? 'border-primary-500 bg-gradient-to-r from-primary-600/20 to-cyber-600/20 shadow-lg'
+                    : 'border-gray-600 bg-gray-800/50 hover:border-gray-500 hover:bg-gray-700/50'
+                    }`}
+                >
+                  <input
+                    type="radio"
+                    name="reward_currency"
+                    value={option.value}
+                    checked={formData.reward_currency === option.value}
+                    onChange={(e) => setFormData(prev => ({ ...prev, reward_currency: e.target.value as 'TON' | 'USDC' }))}
+                    className="absolute opacity-0"
+                  />
+                  <div className="flex items-center space-x-3 mb-2">
+                    <img src={option.image} alt={option.title} className="w-8 h-8 object-contain" />
+                    <span className="text-white font-medium">{option.title}</span>
+                    {formData.reward_currency === option.value && (
+                      <div className="ml-auto">
+                        <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse-fast"></div>
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-xs text-gray-400 leading-relaxed">{option.desc}</p>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-6">
             <label className="block text-sm font-medium text-white mb-3 flex items-center space-x-2">
               <span>🏦</span>
-              <span>Total Reward Pool (TON)</span>
+              <span>Total Reward Pool ({formData.reward_currency})</span>
             </label>
             <input
               type="number"
@@ -688,10 +730,10 @@ Additional areas of interest for extra bounty consideration..."
               </span>
               <div className="flex items-center space-x-2">
                 <span className={`font-bold text-lg ${totalDistribution === formData.total_reward_pool ? 'text-neon-green animate-pulse-fast' : 'text-red-400'}`}>
-                  {totalDistribution.toLocaleString()} TON
+                  {totalDistribution.toLocaleString()} {formData.reward_currency}
                 </span>
                 <span className="text-gray-400">/</span>
-                <span className="text-white font-medium">{formData.total_reward_pool.toLocaleString()} TON</span>
+                <span className="text-white font-medium">{formData.total_reward_pool.toLocaleString()} {formData.reward_currency}</span>
               </div>
             </div>
             {totalDistribution !== formData.total_reward_pool && (

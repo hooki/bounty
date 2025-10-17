@@ -69,6 +69,7 @@ export type Database = {
           selected_files: string[]
           total_reward_pool: number
           reward_distribution: Record<string, number>
+          reward_currency: "TON" | "USDC"
           status: "active" | "closed"
           visibility: "public" | "organization" | "private"
           allowed_organizations: string | null
@@ -85,6 +86,7 @@ export type Database = {
           selected_files: string[]
           total_reward_pool: number
           reward_distribution: Record<string, number>
+          reward_currency?: "TON" | "USDC"
           total_lines_of_code?: number
           status?: "active" | "closed"
           visibility?: "public" | "organization" | "private"
@@ -102,6 +104,7 @@ export type Database = {
           selected_files?: string[]
           total_reward_pool?: number
           reward_distribution?: Record<string, number>
+          reward_currency?: "TON" | "USDC"
           total_lines_of_code?: number
           status?: "active" | "closed"
           visibility?: "public" | "organization" | "private"

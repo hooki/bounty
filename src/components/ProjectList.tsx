@@ -138,7 +138,7 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
                 <div className="flex items-center justify-between flex-shrink-0" style={{ width: '576px' }}>
                   <div className="w-40 text-center">
                     <div className="text-lg font-bold text-white mb-1">
-                      {project.total_reward_pool.toLocaleString()} TON
+                      {project.total_reward_pool.toLocaleString()} {project.reward_currency || 'TON'}
                     </div>
                     <div className="text-sm text-gray-400">Rewards</div>
                   </div>

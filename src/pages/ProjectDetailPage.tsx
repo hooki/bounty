@@ -218,7 +218,7 @@ export default function ProjectDetailPage() {
                   <span>Reward Pool</span>
                 </div>
                 <div className="text-3xl font-bold text-neon-green animate-pulse-fast">
-                  {project.total_reward_pool.toLocaleString()} TON
+                  {project.total_reward_pool.toLocaleString()} {project.reward_currency || 'TON'}
                 </div>
               </div>
               <div className="bg-black/30 rounded-xl p-4 border border-white/20">
@@ -271,7 +271,7 @@ export default function ProjectDetailPage() {
                     </span>
                     <span>{severity}</span>
                   </div>
-                  <div className="text-lg font-bold text-white">{amount.toLocaleString()} TON</div>
+                  <div className="text-lg font-bold text-white">{amount.toLocaleString()} {project.reward_currency || 'TON'}</div>
                 </div>
               ))}
             </div>
