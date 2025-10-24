@@ -67,7 +67,7 @@ export default function ProfilePage() {
               <div className="text-pixel-text-muted">
                 {user?.email}
               </div>
-              <div className="text-base text-pixel-text-muted mt-1">
+              <div className="text-pixel-text-muted mt-1">
                 Hunter
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function ProfilePage() {
                 <label className="block font-medium text-pixel-text-muted mb-2">
                   Wallet Address
                 </label>
-                <p className="text-base text-pixel-text-muted mb-3">
+                <p className="text-pixel-text-muted mb-3">
                   Enter your EVM compatible wallet address to receive bug bounty rewards
                 </p>
                 {isEditing ? (
@@ -140,13 +140,13 @@ export default function ProfilePage() {
             </h2>
             <div className="space-y-3">
               <div>
-                <div className="text-base text-pixel-text-muted mb-1">Username</div>
+                <div className="text-pixel-text-muted mb-1">Username</div>
                 <div className="text-pixel-text font-mono">
                   {user?.user_metadata?.user_name}
                 </div>
               </div>
               <div>
-                <div className="text-base text-pixel-text-muted mb-1">Organization</div>
+                <div className="text-pixel-text-muted mb-1">Organization</div>
                 <div className="text-pixel-text font-mono">
                   {profile?.organization || 'N/A'}
                 </div>

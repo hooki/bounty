@@ -54,7 +54,7 @@ export default function ProjectsPage() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-pixel text-pixel-text mb-3">Mission Control</h1>
-            <p className="text-pixel-text-muted">Deploy and manage your cybersecurity missions</p>
+            <p className="text-pixel-text-muted">Deploy and manage your bounty missions</p>
           </div>
           <button
             onClick={() => setShowForm(true)}

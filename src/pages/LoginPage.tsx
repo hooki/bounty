@@ -62,7 +62,7 @@ export default function LoginPage() {
               </button>
             </div>
 
-            <div className="text-base text-gray-500 text-center">
+            <div className="text-gray-500 text-center">
               <p>
                 By signing in, you must be a member of a specific GitHub organization
                 <br />

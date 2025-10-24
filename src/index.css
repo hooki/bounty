@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply bg-pixel-bg font-retro text-pixel-text text-2xl;
+    @apply bg-pixel-bg font-retro text-pixel-text text-xl;
   }
 }
 

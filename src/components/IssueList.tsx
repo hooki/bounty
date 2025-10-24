@@ -102,7 +102,7 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-4">
             <div>
-              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
+              <label className="block text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
@@ -115,7 +115,7 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
             </div>
 
             <div>
-              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
+              <label className="block text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as typeof filterStatus)}
@@ -132,7 +132,7 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
             </div>
 
             <div>
-              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Severity</label>
+              <label className="block text-pixel-text-muted mb-2 uppercase tracking-wider">Severity</label>
               <select
                 value={filterSeverity}
                 onChange={(e) => setFilterSeverity(e.target.value as typeof filterSeverity)}
@@ -189,12 +189,12 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
                 {/* 상태 및 심각도 - 오른쪽 영역 */}
                 <div className="flex items-center space-x-3 flex-shrink-0 ml-4">
                   {issue.status !== 'invalid' && (
-                    <span className={`inline-flex items-center px-3 py-1 text-base font-pixel ${getSeverityColor(issue.severity)}`}>
+                    <span className={`inline-flex items-center px-3 py-1 font-pixel ${getSeverityColor(issue.severity)}`}>
                       {issue.severity.toUpperCase()}
                     </span>
                   )}
 
-                  <span className={`inline-flex items-center px-3 py-1 text-base font-pixel ${getStatusColor(issue.status)}`}>
+                  <span className={`inline-flex items-center px-3 py-1 font-pixel ${getStatusColor(issue.status)}`}>
                     {getStatusLabel(issue.status).toUpperCase()}
                   </span>
                 </div>

@@ -161,7 +161,7 @@ export default function ProjectDetailPage() {
                 {isOwner && (
                   <button
                     onClick={handleVisibilityToggle}
-                    className="pixel-btn-secondary text-base"
+                    className="pixel-btn-secondary"
                     title={`Click to change to ${getVisibilityConfig(project.visibility).next}`}
                   >
                     <span className="truncate">{getVisibilityConfig(project.visibility).title}</span>
@@ -171,7 +171,7 @@ export default function ProjectDetailPage() {
                 {isOwner && project.status === 'active' && (
                   <button
                     onClick={() => handleStatusChange('closed')}
-                    className="pixel-btn bg-pixel-danger text-white border-pixel-danger hover:bg-red-600 text-base"
+                    className="pixel-btn bg-pixel-danger text-white border-pixel-danger hover:bg-red-600"
                   >
                     Close
                   </button>
@@ -185,7 +185,7 @@ export default function ProjectDetailPage() {
                 <label className="block font-medium text-pixel-text mb-2">
                   Allowed Organizations
                 </label>
-                <p className="text-base text-pixel-text-muted mb-3">
+                <p className="text-pixel-text-muted mb-3">
                   Configure which organizations can access this mission
                 </p>
                 <OrganizationSelector
@@ -205,10 +205,10 @@ export default function ProjectDetailPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Reward Pool
                 </div>
-                <div className="font-pixel text-pixel-accent flex items-center justify-center gap-2">
+                <div className="text-2xl font-pixel text-pixel-accent flex items-center justify-center gap-2">
                   <span>{project.total_reward_pool.toLocaleString()}</span>
                   <img
                     src={project.reward_currency === 'USDC' ? '/images/usdc.png' : '/images/ton.svg'}
@@ -218,7 +218,7 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Repository
                 </div>
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2">
@@ -233,18 +233,18 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Target Files
                 </div>
-                <div className="font-pixel text-pixel-text">
+                <div className="text-2xl font-pixel text-pixel-text">
                   {project.selected_files.length}
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Lines of Code
                 </div>
-                <div className="font-pixel text-pixel-text">
+                <div className="text-2xl font-pixel text-pixel-text">
                   {project.total_lines_of_code ? project.total_lines_of_code.toLocaleString() : '0'}
                 </div>
               </div>
@@ -265,7 +265,7 @@ export default function ProjectDetailPage() {
 
                 return (
                   <div key={severity} className="text-center p-4 bg-pixel-bg border-2 border-pixel-border">
-                    <div className={`text-base capitalize mb-2 uppercase tracking-wider font-medium ${config.color}`}>
+                    <div className={`capitalize mb-2 uppercase tracking-wider font-medium ${config.color}`}>
                       {config.label}
                     </div>
                     <div className="font-pixel text-pixel-text flex items-center justify-center gap-2">
@@ -288,7 +288,7 @@ export default function ProjectDetailPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`py-4 px-1 border-b-4 font-pixel text-base transition-all duration-100 whitespace-nowrap ${activeTab === tab.id
+                className={`py-4 px-1 border-b-4 font-pixel transition-all duration-100 whitespace-nowrap ${activeTab === tab.id
                   ? 'border-pixel-accent text-pixel-accent'
                   : 'border-transparent text-pixel-text-muted hover:text-pixel-text hover:border-pixel-border'
                   }`}

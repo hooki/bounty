@@ -67,7 +67,7 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-4">
             <div>
-              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
+              <label className="block text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
@@ -80,7 +80,7 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
             </div>
 
             <div>
-              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
+              <label className="block text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as typeof filterStatus)}
@@ -94,7 +94,7 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
           </div>
 
           <div className="w-full sm:w-64">
-            <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Search</label>
+            <label className="block text-pixel-text-muted mb-2 uppercase tracking-wider">Search</label>
             <input
               type="text"
               placeholder="Find projects..."

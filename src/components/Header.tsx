@@ -21,9 +21,9 @@ export default function Header() {
             <Link to="/" className="flex items-center space-x-3 group">
               <div>
                 <div className="text-2xl font-pixel text-pixel-accent">
-                  CyberHunt
+                  BountyHunt
                 </div>
-                <div className="text-base text-pixel-text-muted -mt-1">Bug Bounty Platform</div>
+                <div className="text-pixel-text-muted -mt-1">Tokamak Network</div>
               </div>
             </Link>
 
@@ -80,14 +80,14 @@ export default function Header() {
                   <div className="font-medium text-pixel-text">
                     {user.user_metadata?.user_name}
                   </div>
-                  <div className="text-base text-pixel-text-muted">Hunter</div>
+                  <div className="text-pixel-text-muted">Hunter</div>
                 </div>
               </button>
 
               {/* Logout Button */}
               <button
                 onClick={signOut}
-                className="pixel-btn-secondary text-base"
+                className="pixel-btn-secondary"
               >
                 <span className="hidden sm:inline">Logout</span>
                 <span className="sm:hidden">Exit</span>

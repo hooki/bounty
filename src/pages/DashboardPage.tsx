@@ -24,11 +24,11 @@ export default function DashboardPage() {
       {/* Hero Section */}
       <div className="pixel-card bg-pixel-bg-light border-pixel-border p-8">
         <div>
-          <h1 className="text-xl font-pixel text-pixel-text mb-3">
+          <h1 className="text-2xl font-pixel text-pixel-text mb-3">
             Welcome back, {user?.user_metadata?.user_name}!
           </h1>
-          <p className="text-pixel-text-muted text-2xl">
-            Ready to hunt some bugs? Your cybersecurity adventure awaits.
+          <p className="text-pixel-text-muted">
+            Ready to hunt some bounties? Your bounty adventure awaits.
           </p>
         </div>
       </div>
@@ -38,8 +38,8 @@ export default function DashboardPage() {
         {/* Active Missions Card */}
         <div className="pixel-card bg-pixel-bg-light border-pixel-border hover:border-pixel-accent transition-all duration-200">
           <div className="mb-3">
-            <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">Active Missions</div>
-            <div className="text-xl font-pixel text-pixel-text">
+            <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">Active Missions</div>
+            <div className="text-2xl font-pixel text-pixel-text">
               {loading ? '...' : stats.activeProjects}
             </div>
           </div>
@@ -48,8 +48,8 @@ export default function DashboardPage() {
         {/* Bug Hunt Score Card */}
         <div className="pixel-card bg-pixel-bg-light border-pixel-border hover:border-pixel-accent transition-all duration-200">
           <div className="mb-3">
-            <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">Issues Discovered</div>
-            <div className="text-xl font-pixel text-pixel-text">
+            <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">Issues Discovered</div>
+            <div className="text-2xl font-pixel text-pixel-text">
               {loading ? '...' : stats.reportedIssues}
             </div>
           </div>
@@ -59,11 +59,11 @@ export default function DashboardPage() {
         <div className="pixel-card bg-pixel-bg-light border-pixel-border hover:border-pixel-accent transition-all duration-200">
           <div className="mb-3">
             <div className="flex items-center justify-between mb-2">
-              <div className="text-2xl text-pixel-text-muted uppercase tracking-wider">Bounty Status</div>
-              <div className="flex items-center gap-1 bg-pixel-bg border border-pixel-border">
+              <div className="text-pixel-text-muted uppercase tracking-wider">Bounty Status</div>
+              <div className="text-xs flex items-center gap-1 bg-pixel-bg border border-pixel-border">
                 <button
                   onClick={() => setSelectedCurrency('TON')}
-                  className={`px-3 py-1 text-sm font-pixel transition-colors ${selectedCurrency === 'TON'
+                  className={`px-3 py-1 font-pixel transition-colors ${selectedCurrency === 'TON'
                     ? 'bg-pixel-accent text-white'
                     : 'text-pixel-text-muted hover:text-pixel-text'
                     }`}
@@ -72,7 +72,7 @@ export default function DashboardPage() {
                 </button>
                 <button
                   onClick={() => setSelectedCurrency('USDC')}
-                  className={`px-3 py-1 text-sm font-pixel transition-colors ${selectedCurrency === 'USDC'
+                  className={`px-3 py-1 font-pixel transition-colors ${selectedCurrency === 'USDC'
                     ? 'bg-pixel-accent text-white'
                     : 'text-pixel-text-muted hover:text-pixel-text'
                     }`}
@@ -81,7 +81,7 @@ export default function DashboardPage() {
                 </button>
               </div>
             </div>
-            <div className="text-xl font-pixel text-pixel-accent mb-2 flex items-center gap-2">
+            <div className="text-2xl font-pixel text-pixel-accent mb-2 flex items-center gap-2">
               {loading ? (
                 '...'
               ) : (
@@ -99,7 +99,7 @@ export default function DashboardPage() {
                 </>
               )}
             </div>
-            <p className="text-pixel-text-muted text-2xl">
+            <p className="text-pixel-text-muted">
               {loading ? (
                 'Loading...'
               ) : (
@@ -123,10 +123,10 @@ export default function DashboardPage() {
       {/* Action Center */}
       <div className="pixel-card bg-pixel-bg-light border-pixel-border">
         <div className="px-6 py-4 border-b-4 border-pixel-border">
-          <h2 className="text-lg font-pixel text-pixel-text">
+          <h2 className="text-2xl font-pixel text-pixel-text">
             Participant Command Center
           </h2>
-          <p className="text-pixel-text-muted text-2xl mt-2">Choose your next adventure</p>
+          <p className="text-pixel-text-muted mt-2">Choose your next adventure</p>
         </div>
 
         <div className="p-6">
@@ -140,10 +140,10 @@ export default function DashboardPage() {
                 <h3 className="text-2xl font-pixel text-pixel-text mb-3 group-hover:text-pixel-accent">
                   Launch New Mission
                 </h3>
-                <p className="text-pixel-text-muted text-2xl mb-4">
-                  Deploy a new bug hunting expedition. Connect your GitHub repository and start your quest.
+                <p className="text-pixel-text-muted mb-4">
+                  Deploy a new bounty mission.
                 </p>
-                <div className="inline-flex items-center text-pixel-accent text-2xl">
+                <div className="inline-flex items-center text-pixel-accent">
                   <span>Deploy Mission</span>
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </div>
@@ -159,10 +159,10 @@ export default function DashboardPage() {
                 <h3 className="text-2xl font-pixel text-pixel-text mb-3 group-hover:text-pixel-accent">
                   Join Active Hunts
                 </h3>
-                <p className="text-pixel-text-muted text-2xl mb-4">
-                  Explore ongoing missions and discover security vulnerabilities. Earn bounties for your discoveries.
+                <p className="text-pixel-text-muted mb-4">
+                  Explore ongoing missions and get your rewards.
                 </p>
-                <div className="inline-flex items-center text-pixel-accent text-2xl">
+                <div className="inline-flex items-center text-pixel-accent">
                   <span>Start Hunting</span>
                   <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </div>

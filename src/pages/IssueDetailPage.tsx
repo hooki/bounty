@@ -143,7 +143,7 @@ export default function IssueDetailPage() {
 
   const renderStatusBadge = (status: string) => {
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded-full text-base font-medium ${getStatusColor(status)}`}>
+      <span className={`inline-flex items-center px-2 py-1 rounded-full font-medium ${getStatusColor(status)}`}>
         {getStatusLabel(status)}
       </span>
     );
@@ -161,7 +161,7 @@ export default function IssueDetailPage() {
 
   const renderSeverityBadge = (severity: string) => {
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded-full text-base font-medium ${getSeverityColor(severity)}`}>
+      <span className={`inline-flex items-center px-2 py-1 rounded-full font-medium ${getSeverityColor(severity)}`}>
         {getSeverityLabel(severity)}
       </span>
     );
@@ -249,7 +249,7 @@ export default function IssueDetailPage() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Hunter
                 </div>
                 <div className="flex items-center space-x-2 mt-2">
@@ -262,7 +262,7 @@ export default function IssueDetailPage() {
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Discovered
                 </div>
                 <div className="text-pixel-text font-medium mt-1">
@@ -271,7 +271,7 @@ export default function IssueDetailPage() {
               </div>
               {issue.project && (
                 <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                  <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                  <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                     Mission
                   </div>
                   {issue.can_access_project ? (
@@ -290,7 +290,7 @@ export default function IssueDetailPage() {
               )}
               {issue.github_issue_url && (
                 <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                  <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
+                  <div className="text-pixel-text-muted mb-2 uppercase tracking-wider">
                     GitHub
                   </div>
                   <a

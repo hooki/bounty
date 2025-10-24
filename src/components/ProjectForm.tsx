@@ -299,7 +299,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
       {/* Mission Registration Header */}
       <div className="mb-8 border-b-4 border-pixel-border pb-4">
         <h2 className="text-2xl font-pixel text-pixel-text">Mission Registration</h2>
-        <p className="text-pixel-text-muted mt-2">Deploy a new bug bounty mission</p>
+        <p className="text-pixel-text-muted mt-2">Deploy a new bounty mission</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">

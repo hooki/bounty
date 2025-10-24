@@ -154,11 +154,11 @@ Provide recommendations..."
           )}
 
           <div className="flex items-center space-x-2 mt-3">
-            <span className="text-base text-pixel-text-muted">Supports markdown syntax</span>
-            <span className="text-base text-pixel-text-muted">|</span>
-            <span className="text-base text-pixel-text-muted">Code blocks: ```language-name</span>
-            <span className="text-base text-pixel-text-muted">|</span>
-            <span className="text-base text-pixel-text-muted">GitHub links auto-embed</span>
+            <span className="text-pixel-text-muted">Supports markdown syntax</span>
+            <span className="text-pixel-text-muted">|</span>
+            <span className="text-pixel-text-muted">Code blocks: ```language-name</span>
+            <span className="text-pixel-text-muted">|</span>
+            <span className="text-pixel-text-muted">GitHub links auto-embed</span>
           </div>
         </div>
 

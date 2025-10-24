@@ -101,7 +101,7 @@ export default function IssuesPage() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-pixel text-pixel-text mb-3">Issue Control Center</h1>
-            <p className="text-pixel-text-muted">Track and eliminate security vulnerabilities across all missions</p>
+            <p className="text-pixel-text-muted">Track and get your rewards across all missions</p>
           </div>
           <button
             onClick={handleNewIssue}
