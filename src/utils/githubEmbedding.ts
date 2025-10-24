@@ -187,6 +187,8 @@ function detectLanguage(filePath: string): string {
     pl: "perl",
     asm: "assembly",
     s: "assembly",
+    sol: "solidity",
+    solidity: "solidity",
   }
 
   return languageMap[extension || ""] || "text"
