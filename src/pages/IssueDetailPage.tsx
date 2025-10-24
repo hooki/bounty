@@ -143,7 +143,7 @@ export default function IssueDetailPage() {
 
   const renderStatusBadge = (status: string) => {
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getStatusColor(status)}`}>
+      <span className={`inline-flex items-center px-2 py-1 rounded-full text-base font-medium ${getStatusColor(status)}`}>
         {getStatusLabel(status)}
       </span>
     );
@@ -161,7 +161,7 @@ export default function IssueDetailPage() {
 
   const renderSeverityBadge = (severity: string) => {
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getSeverityColor(severity)}`}>
+      <span className={`inline-flex items-center px-2 py-1 rounded-full text-base font-medium ${getSeverityColor(severity)}`}>
         {getSeverityLabel(severity)}
       </span>
     );
@@ -249,7 +249,7 @@ export default function IssueDetailPage() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Hunter
                 </div>
                 <div className="flex items-center space-x-2 mt-2">
@@ -258,26 +258,26 @@ export default function IssueDetailPage() {
                     src={issue.reporter.avatar_url}
                     alt={issue.reporter.username}
                   />
-                  <span className="text-pixel-text font-medium text-xl">{issue.reporter.username}</span>
+                  <span className="text-pixel-text font-medium">{issue.reporter.username}</span>
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Discovered
                 </div>
-                <div className="text-pixel-text font-medium mt-1 text-xl">
+                <div className="text-pixel-text font-medium mt-1">
                   {new Date(issue.created_at).toLocaleDateString('en-US')}
                 </div>
               </div>
               {issue.project && (
                 <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                  <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
+                  <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                     Mission
                   </div>
                   {issue.can_access_project ? (
                     <Link
                       to={`/projects/${issue.project_id}`}
-                      className="text-pixel-accent hover:text-pixel-accent-hover font-medium mt-1 block truncate text-xl"
+                      className="text-pixel-accent hover:text-pixel-accent-hover font-medium mt-1 block truncate"
                     >
                       {issue.project.title}
                     </Link>
@@ -290,7 +290,7 @@ export default function IssueDetailPage() {
               )}
               {issue.github_issue_url && (
                 <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                  <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
+                  <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                     GitHub
                   </div>
                   <a
@@ -314,18 +314,18 @@ export default function IssueDetailPage() {
       {/* Mission Control Panel */}
       {isOwnerOrReporter && (
         <div className="pixel-card bg-pixel-bg-light border-pixel-border p-6">
-          <h3 className="text-lg font-pixel text-pixel-text mb-4">
+          <h3 className="text-2xl font-pixel text-pixel-text mb-4">
             Mission Control
           </h3>
           <div className="flex flex-col sm:flex-row justify-between gap-4">
             {isProjectOwner && (
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
-                  <label className="block text-2xl font-medium text-pixel-text-muted mb-2">Status Control</label>
+                  <label className="block font-medium text-pixel-text-muted mb-2">Status Control</label>
                   <select
                     value={issue.status}
                     onChange={(e) => handleStatusChange(e.target.value as "open" | "in_progress" | "solved" | "acknowledged" | "invalid" | "duplicated")}
-                    className="pixel-input text-2xl w-full"
+                    className="pixel-input w-full"
                   >
                     <option value="open">Open</option>
                     <option value="in_progress">In Progress</option>
@@ -336,11 +336,11 @@ export default function IssueDetailPage() {
                   </select>
                 </div>
                 <div className="flex-1">
-                  <label className="block text-2xl font-medium text-pixel-text-muted mb-2">Severity Control</label>
+                  <label className="block font-medium text-pixel-text-muted mb-2">Severity Control</label>
                   <select
                     value={issue.severity}
                     onChange={(e) => handleSeverityChange(e.target.value as "low" | "medium" | "high" | "critical")}
-                    className="pixel-input text-2xl w-full"
+                    className="pixel-input w-full"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -354,7 +354,7 @@ export default function IssueDetailPage() {
               <div className="sm:self-end">
                 <button
                   onClick={handleDeleteIssue}
-                  className="pixel-btn bg-pixel-danger text-white border-pixel-danger hover:bg-red-600 text-base w-full sm:w-auto"
+                  className="pixel-btn bg-pixel-danger text-white border-pixel-danger hover:bg-red-600 w-full sm:w-auto"
                 >
                   Delete Report
                 </button>
@@ -366,11 +366,11 @@ export default function IssueDetailPage() {
 
       {/* Issue Description */}
       <div className="pixel-card p-8">
-        <h2 className="text-xl font-pixel text-pixel-text mb-6">
+        <h2 className="text-2xl font-pixel text-pixel-text mb-6">
           Description
         </h2>
         <div className="prose prose-2xl max-w-none prose-invert font-roboto">
-          <EnhancedMarkdown className="text-2xl">
+          <EnhancedMarkdown>
             {issue.description}
           </EnhancedMarkdown>
         </div>
@@ -378,7 +378,7 @@ export default function IssueDetailPage() {
 
       {/* Comments */}
       <div className="pixel-card p-8">
-        <h2 className="text-lg font-pixel text-pixel-text mb-6">
+        <h2 className="text-2xl font-pixel text-pixel-text mb-6">
           Comments ({comments.length})
         </h2>
 
@@ -390,13 +390,13 @@ export default function IssueDetailPage() {
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Add a comment..."
-              className="w-full pixel-input text-2xl"
+              className="w-full pixel-input"
             />
             <div className="mt-4 flex justify-end">
               <button
                 onClick={handleAddComment}
                 disabled={!newComment.trim() || addingComment}
-                className="pixel-btn-primary text-base disabled:opacity-50 disabled:cursor-not-allowed"
+                className="pixel-btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {addingComment ? (
                   <>
@@ -419,16 +419,16 @@ export default function IssueDetailPage() {
           </div>
         ) : comments.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-pixel-text-muted text-lg mb-2">No comments yet</p>
-            <p className="text-pixel-text-muted text-2xl">Be the first to comment</p>
+            <p className="text-pixel-text-muted mb-2">No comments yet</p>
+            <p className="text-pixel-text-muted">Be the first to comment</p>
           </div>
         ) : (
-          <div className="space-y-4 text-2xl">
+          <div className="space-y-4">
             {comments.map((comment) => (
               <div key={comment.id} className="bg-pixel-bg border-2 border-pixel-border p-6 hover:bg-pixel-bg-light transition-colors">
                 <div className="flex items-start space-x-4">
                   {comment.is_system_generated ? (
-                    <div className="h-10 w-10 rounded-full bg-pixel-accent flex items-center justify-center text-2xl">
+                    <div className="h-10 w-10 rounded-full bg-pixel-accent flex items-center justify-center">
                       🤖
                     </div>
                   ) : (

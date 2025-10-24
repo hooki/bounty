@@ -257,7 +257,7 @@ export function EnhancedMarkdown({ children, className }: { children: string; cl
   return (
     <GitHubCodeEmbed
       content={children}
-      className={`prose prose-sm max-w-none prose-invert ${className || ''}`}
+      className={`prose prose-sm max-w-none prose-invert text-2xl ${className || ''}`}
     />
   );
 }

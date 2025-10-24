@@ -102,11 +102,11 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-4">
             <div>
-              <label className="block text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
+              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="pixel-input text-2xl"
+                className="pixel-input"
               >
                 <option value="created_at">Latest</option>
                 <option value="severity">Severity</option>
@@ -115,11 +115,11 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
             </div>
 
             <div>
-              <label className="block text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
+              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as typeof filterStatus)}
-                className="pixel-input text-2xl"
+                className="pixel-input"
               >
                 <option value="all">All</option>
                 <option value="open">Open</option>
@@ -132,11 +132,11 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
             </div>
 
             <div>
-              <label className="block text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">Severity</label>
+              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Severity</label>
               <select
                 value={filterSeverity}
                 onChange={(e) => setFilterSeverity(e.target.value as typeof filterSeverity)}
-                className="pixel-input text-2xl"
+                className="pixel-input"
               >
                 <option value="all">All</option>
                 <option value="critical">Critical</option>
@@ -150,7 +150,7 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
           {showReportButton && onReportClick && (
             <button
               onClick={onReportClick}
-              className="pixel-btn-primary text-base"
+              className="pixel-btn-primary"
             >
               Report Issue
             </button>
@@ -162,8 +162,8 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
       <div className="divide-y-4 divide-pixel-border">
         {filteredAndSortedIssues.length === 0 ? (
           <div className="p-12 text-center">
-            <p className="text-pixel-text-muted text-lg mb-2">{issues.length === 0 ? 'No issues found' : 'No search results'}</p>
-            <p className="text-pixel-text-muted text-2xl">Try adjusting your search or filters</p>
+            <p className="text-pixel-text-muted mb-2">{issues.length === 0 ? 'No issues found' : 'No search results'}</p>
+            <p className="text-pixel-text-muted">Try adjusting your search or filters</p>
           </div>
         ) : (
           filteredAndSortedIssues.map((issue) => (
@@ -179,22 +179,22 @@ export default function IssueList({ issues, loading, onIssueClick, showProjectTi
                     <img src='/images/ton.svg' alt="tokamak-network" className="w-10 h-10 object-contain opacity-80" />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <h3 className="text-2xl font-pixel text-pixel-text group-hover:text-pixel-accent truncate">
+                    <h3 className="font-pixel text-pixel-text group-hover:text-pixel-accent truncate">
                       {issue.title}
                     </h3>
-                    <span className="text-2xl text-pixel-text-muted mt-1 truncate">{issue.project.repository_url.split('/').pop()}</span>
+                    <span className="text-pixel-text-muted mt-1 truncate">{issue.project.repository_url.split('/').pop()}</span>
                   </div>
                 </div>
 
                 {/* 상태 및 심각도 - 오른쪽 영역 */}
                 <div className="flex items-center space-x-3 flex-shrink-0 ml-4">
                   {issue.status !== 'invalid' && (
-                    <span className={`inline-flex items-center px-3 py-1 text-sm font-pixel ${getSeverityColor(issue.severity)}`}>
+                    <span className={`inline-flex items-center px-3 py-1 text-base font-pixel ${getSeverityColor(issue.severity)}`}>
                       {issue.severity.toUpperCase()}
                     </span>
                   )}
 
-                  <span className={`inline-flex items-center px-3 py-1 text-sm font-pixel ${getStatusColor(issue.status)}`}>
+                  <span className={`inline-flex items-center px-3 py-1 text-base font-pixel ${getStatusColor(issue.status)}`}>
                     {getStatusLabel(issue.status).toUpperCase()}
                   </span>
                 </div>

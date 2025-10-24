@@ -67,11 +67,11 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-4">
             <div>
-              <label className="block text-xl text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
+              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Sort</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="pixel-input text-2xl"
+                className="pixel-input"
               >
                 <option value="created_at">Latest</option>
                 <option value="total_reward_pool">Reward Pool</option>
@@ -80,11 +80,11 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
             </div>
 
             <div>
-              <label className="block text-xl text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
+              <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Status</label>
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as typeof filterStatus)}
-                className="pixel-input text-2xl"
+                className="pixel-input"
               >
                 <option value="all">All</option>
                 <option value="active">Active</option>
@@ -94,13 +94,13 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
           </div>
 
           <div className="w-full sm:w-64">
-            <label className="block text-xl text-pixel-text-muted mb-2 uppercase tracking-wider">Search</label>
+            <label className="block text-base text-pixel-text-muted mb-2 uppercase tracking-wider">Search</label>
             <input
               type="text"
               placeholder="Find projects..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pixel-input text-2xl placeholder-pixel-text-muted"
+              className="w-full pixel-input placeholder-pixel-text-muted"
             />
           </div>
         </div>
@@ -110,8 +110,8 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
       <div className="divide-y-4 divide-pixel-border">
         {filteredAndSortedProjects.length === 0 ? (
           <div className="p-12 text-center">
-            <p className="text-pixel-text-muted text-lg mb-2">{projects.length === 0 ? 'No projects found' : 'No search results'}</p>
-            <p className="text-pixel-text-muted text-2xl">Try adjusting your search or filters</p>
+            <p className="text-pixel-text-muted mb-2">{projects.length === 0 ? 'No projects found' : 'No search results'}</p>
+            <p className="text-pixel-text-muted">Try adjusting your search or filters</p>
           </div>
         ) : (
           filteredAndSortedProjects.map((project) => (
@@ -130,18 +130,18 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
                     <img src='/images/ton.svg' alt="tokamak-network" className="w-10 h-10 object-contain opacity-80" />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <h3 className="text-2xl font-pixel text-pixel-text group-hover:text-pixel-accent truncate">
+                    <h3 className="font-pixel text-pixel-text group-hover:text-pixel-accent truncate">
                       {project.title}
                     </h3>
-                    <span className="text-2xl text-pixel-text-muted mt-1 truncate">{project.repository_url.split('/').pop()}</span>
+                    <span className="text-pixel-text-muted mt-1 truncate">{project.repository_url.split('/').pop()}</span>
                   </div>
                 </div>
 
                 {/* 리워드 풀, 시작 날짜, 종료 날짜 - 고정 너비 컬럼들 */}
                 <div className="flex items-center justify-between flex-shrink-0 space-x-6" style={{ width: '576px' }}>
                   <div className="w-36 text-right">
-                    <div className="text-xl text-pixel-text-muted mb-1 text-right">REWARD</div>
-                    <div className="font-pixel text-xl text-pixel-accent text-right flex items-center justify-end space-x-2">
+                    <div className="text-pixel-text-muted mb-1 text-right">REWARD</div>
+                    <div className="font-pixel text-pixel-accent text-right flex items-center justify-end space-x-2">
                       <span>{project.total_reward_pool.toLocaleString()}</span>
                       <img
                         src={project.reward_currency === 'USDC' ? '/images/usdc.png' : '/images/ton.svg'}
@@ -152,8 +152,8 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
                   </div>
 
                   <div className="w-44 text-right">
-                    <div className="text-xl text-pixel-text-muted mb-1 text-right">START</div>
-                    <div className="text-2xl text-pixel-text text-right">
+                    <div className="text-pixel-text-muted mb-1 text-right">START</div>
+                    <div className="text-pixel-text text-right">
                       {project.start_date
                         ? new Date(project.start_date).toISOString().split('T')[0]
                         : 'Not set'
@@ -162,8 +162,8 @@ export default function ProjectList({ projects, loading, onProjectClick }: Proje
                   </div>
 
                   <div className="w-44 text-right">
-                    <div className="text-xl text-pixel-text-muted mb-1 text-right">END</div>
-                    <div className="text-2xl text-pixel-text text-right">
+                    <div className="text-pixel-text-muted mb-1 text-right">END</div>
+                    <div className="text-pixel-text text-right">
                       {project.end_date
                         ? new Date(project.end_date).toISOString().split('T')[0]
                         : 'Not set'

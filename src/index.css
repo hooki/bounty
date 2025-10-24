@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply bg-pixel-bg font-retro text-pixel-text;
+    @apply bg-pixel-bg font-retro text-pixel-text text-2xl;
   }
 }
 
@@ -35,7 +35,7 @@
 
   /* Pixel Button */
   .pixel-btn {
-    @apply pixel-border px-6 py-3 font-pixel text-sm uppercase;
+    @apply pixel-border px-6 py-3 font-pixel text-base uppercase;
     @apply transition-all duration-100 active:translate-x-1 active:translate-y-1;
     @apply active:shadow-none;
   }

@@ -299,19 +299,19 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
       {/* Mission Registration Header */}
       <div className="mb-8 border-b-4 border-pixel-border pb-4">
         <h2 className="text-2xl font-pixel text-pixel-text">Mission Registration</h2>
-        <p className="text-pixel-text-muted mt-2 text-xl">Deploy a new bug bounty mission</p>
+        <p className="text-pixel-text-muted mt-2">Deploy a new bug bounty mission</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Mission Intel */}
         <div className="bg-pixel-bg p-6 border-2 border-pixel-border">
-          <h3 className="text-lg font-pixel text-pixel-text mb-6">
+          <h3 className="text-2xl font-pixel text-pixel-text mb-6">
             Mission Configuration
           </h3>
 
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-2xl font-medium text-pixel-text mb-3 flex items-center">
+              <label className="block font-medium text-pixel-text mb-3 flex items-center">
 
                 <span>Title</span>
               </label>
@@ -320,16 +320,16 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                 required
                 value={formData.title}
                 onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted text-xl focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+                className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
                 placeholder="Enter title (e.g., Operation SecureVault, Security Audit, etc.)"
               />
             </div>
 
             <div>
-              <label className="block text-2xl font-medium text-pixel-text mb-4 flex items-center">
+              <label className="block font-medium text-pixel-text mb-4 flex items-center">
                 <span>Visibility</span>
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4  text-xl">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
                   { value: 'public', icon: '', title: 'Public', desc: 'All users' },
                   { value: 'organization', icon: '', title: 'Invite', desc: 'Invited only' },

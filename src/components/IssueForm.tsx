@@ -37,13 +37,13 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
   return (
     <div className="pixel-card p-8">
       <div className="mb-8">
-        <h2 className="text-xl font-pixel text-pixel-text mb-2">Issue Report</h2>
-        <p className="text-pixel-text-muted text-2xl">Document your findings</p>
+        <h2 className="text-2xl font-pixel text-pixel-text mb-2">Issue Report</h2>
+        <p className="text-pixel-text-muted">Document your findings</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         <div>
-          <label className="block text-2xl font-medium text-pixel-text mb-3">
+          <label className="block font-medium text-pixel-text mb-3">
             Issue Title
           </label>
           <input
@@ -51,13 +51,13 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
             required
             value={formData.title}
             onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-            className="pixel-input text-2xl w-full"
+            className="pixel-input w-full"
             placeholder="Enter a descriptive title"
           />
         </div>
 
         <div>
-          <label className="block text-2xl font-medium text-pixel-text mb-4">
+          <label className="block font-medium text-pixel-text mb-4">
             Severity Level
           </label>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -78,7 +78,7 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
                   className="sr-only"
                 />
                 <div className="text-center">
-                  <span className={`inline-block px-3 py-1 text-2xl font-bold border ${option.color}`}>
+                  <span className={`inline-block px-3 py-1 font-bold border ${option.color}`}>
                     {option.label}
                   </span>
                 </div>
@@ -89,14 +89,14 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
 
         <div>
           <div className="flex items-center justify-between mb-4">
-            <label className="block text-2xl font-medium text-pixel-text">
+            <label className="block font-medium text-pixel-text">
               Description
             </label>
             <div className="flex space-x-2">
               <button
                 type="button"
                 onClick={() => setShowPreview(false)}
-                className={`px-4 py-2 text-2xl font-medium transition-colors ${!showPreview
+                className={`px-4 py-2 font-medium transition-colors ${!showPreview
                   ? 'pixel-btn-primary'
                   : 'pixel-btn-secondary'
                   }`}
@@ -106,7 +106,7 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
               <button
                 type="button"
                 onClick={() => setShowPreview(true)}
-                className={`px-4 py-2 text-2xl font-medium transition-colors ${showPreview
+                className={`px-4 py-2 font-medium transition-colors ${showPreview
                   ? 'pixel-btn-primary'
                   : 'pixel-btn-secondary'
                   }`}
@@ -134,7 +134,7 @@ export default function IssueForm({ onSubmit, onCancel, loading = false }: Issue
               required
               value={formData.description}
               onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-              className="w-full pixel-input font-sans text-2xl antialiased"
+              className="w-full pixel-input font-sans antialiased"
               placeholder="Document your findings in markdown format:
 
 ## Overview
@@ -154,11 +154,11 @@ Provide recommendations..."
           )}
 
           <div className="flex items-center space-x-2 mt-3">
-            <span className="text-sm text-pixel-text-muted">Supports markdown syntax</span>
-            <span className="text-sm text-pixel-text-muted">|</span>
-            <span className="text-sm text-pixel-text-muted">Code blocks: ```language-name</span>
-            <span className="text-sm text-pixel-text-muted">|</span>
-            <span className="text-sm text-pixel-text-muted">GitHub links auto-embed</span>
+            <span className="text-base text-pixel-text-muted">Supports markdown syntax</span>
+            <span className="text-base text-pixel-text-muted">|</span>
+            <span className="text-base text-pixel-text-muted">Code blocks: ```language-name</span>
+            <span className="text-base text-pixel-text-muted">|</span>
+            <span className="text-base text-pixel-text-muted">GitHub links auto-embed</span>
           </div>
         </div>
 
@@ -166,14 +166,14 @@ Provide recommendations..."
           <button
             type="button"
             onClick={onCancel}
-            className="pixel-btn-secondary text-2xl"
+            className="pixel-btn-secondary"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="pixel-btn-primary text-2xl disabled:opacity-50 disabled:cursor-not-allowed"
+            className="pixel-btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>

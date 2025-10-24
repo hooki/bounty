@@ -20,10 +20,10 @@ export default function Header() {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3 group">
               <div>
-                <div className="text-lg font-pixel text-sm text-pixel-accent">
+                <div className="text-2xl font-pixel text-pixel-accent">
                   CyberHunt
                 </div>
-                <div className="text-sm text-pixel-text-muted -mt-1">Bug Bounty Platform</div>
+                <div className="text-base text-pixel-text-muted -mt-1">Bug Bounty Platform</div>
               </div>
             </Link>
 
@@ -35,7 +35,7 @@ export default function Header() {
                     <Link
                       key={item.name}
                       to={item.href}
-                      className={`px-5 py-2 text-3xl font-medium transition-all duration-100 flex items-center cursor-pointer ${location.pathname === item.href
+                      className={`px-5 py-2 text-2xl font-medium transition-all duration-100 flex items-center cursor-pointer ${location.pathname === item.href
                         ? 'text-pixel-accent border-b-2 border-pixel-accent'
                         : 'text-pixel-text hover:text-pixel-accent'
                         }`}
@@ -77,10 +77,10 @@ export default function Header() {
                   alt={user.user_metadata?.user_name}
                 />
                 <div className="hidden sm:block">
-                  <div className="text-2xl font-medium text-pixel-text">
+                  <div className="font-medium text-pixel-text">
                     {user.user_metadata?.user_name}
                   </div>
-                  <div className="text-sm text-pixel-text-muted">Hunter</div>
+                  <div className="text-base text-pixel-text-muted">Hunter</div>
                 </div>
               </button>
 

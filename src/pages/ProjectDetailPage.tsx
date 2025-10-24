@@ -182,10 +182,10 @@ export default function ProjectDetailPage() {
             {/* Organization Settings - visibility가 'organization'이고 owner일 때만 표시 */}
             {isOwner && project.visibility === 'organization' && (
               <div className="mb-6 p-4 bg-pixel-bg border-2 border-pixel-border">
-                <label className="block text-2xl font-medium text-pixel-text mb-2">
+                <label className="block font-medium text-pixel-text mb-2">
                   Allowed Organizations
                 </label>
-                <p className="text-sm text-pixel-text-muted mb-3">
+                <p className="text-base text-pixel-text-muted mb-3">
                   Configure which organizations can access this mission
                 </p>
                 <OrganizationSelector
@@ -205,10 +205,10 @@ export default function ProjectDetailPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Reward Pool
                 </div>
-                <div className="text-xl font-pixel text-pixel-accent flex items-center justify-center gap-2">
+                <div className="font-pixel text-pixel-accent flex items-center justify-center gap-2">
                   <span>{project.total_reward_pool.toLocaleString()}</span>
                   <img
                     src={project.reward_currency === 'USDC' ? '/images/usdc.png' : '/images/ton.svg'}
@@ -218,33 +218,33 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Repository
                 </div>
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2">
-                  <div className="text-xl font-medium text-pixel-accent truncate max-w-full">
+                  <div className="font-medium text-pixel-accent truncate max-w-full">
                     <a href={project.repository_url} target="_blank" rel="noopener noreferrer" className="hover:text-pixel-accent-hover">
                       {project.repository_url.replace('https://github.com/', '')}
                     </a>
                   </div>
-                  <div className="text-2xl text-pixel-text-muted whitespace-nowrap">
+                  <div className="text-pixel-text-muted whitespace-nowrap">
                     ({project.branch_name})
                   </div>
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Target Files
                 </div>
-                <div className="text-xl font-pixel text-pixel-text">
+                <div className="font-pixel text-pixel-text">
                   {project.selected_files.length}
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Lines of Code
                 </div>
-                <div className="text-xl font-pixel text-pixel-text">
+                <div className="font-pixel text-pixel-text">
                   {project.total_lines_of_code ? project.total_lines_of_code.toLocaleString() : '0'}
                 </div>
               </div>
@@ -265,10 +265,10 @@ export default function ProjectDetailPage() {
 
                 return (
                   <div key={severity} className="text-center p-4 bg-pixel-bg border-2 border-pixel-border">
-                    <div className={`text-2xl capitalize mb-2 uppercase tracking-wider font-medium ${config.color}`}>
+                    <div className={`text-base capitalize mb-2 uppercase tracking-wider font-medium ${config.color}`}>
                       {config.label}
                     </div>
-                    <div className="text-xl font-pixel text-pixel-text flex items-center justify-center gap-2">
+                    <div className="font-pixel text-pixel-text flex items-center justify-center gap-2">
                       <span>{amount.toLocaleString()}</span>
                       <img src={currencyIcon} alt={project.reward_currency || 'TON'} className="w-9 h-9" />
                     </div>
@@ -288,7 +288,7 @@ export default function ProjectDetailPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`py-4 px-1 border-b-4 font-pixel text-sm transition-all duration-100 whitespace-nowrap ${activeTab === tab.id
+                className={`py-4 px-1 border-b-4 font-pixel text-base transition-all duration-100 whitespace-nowrap ${activeTab === tab.id
                   ? 'border-pixel-accent text-pixel-accent'
                   : 'border-transparent text-pixel-text-muted hover:text-pixel-text hover:border-pixel-border'
                   }`}
@@ -309,7 +309,7 @@ export default function ProjectDetailPage() {
           {activeTab === 'description' && (
             <div className="space-y-6">
               <div className="prose prose-2xl max-w-none mb-6 prose-invert font-roboto">
-                <EnhancedMarkdown className="text-white text-2xl">
+                <EnhancedMarkdown className="text-white">
                   {project.description}
                 </EnhancedMarkdown>
               </div>
@@ -319,7 +319,7 @@ export default function ProjectDetailPage() {
           {activeTab === 'overview' && (
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-pixel text-pixel-text mb-4">
+                <h3 className="text-2xl font-pixel text-pixel-text mb-4">
                   Target Files
                 </h3>
                 <div className="bg-pixel-bg p-4 max-h-64 overflow-y-auto border-2 border-pixel-border">
@@ -329,7 +329,7 @@ export default function ProjectDetailPage() {
                       href={getGitHubFileUrl(file)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-2xl font-mono text-pixel-text py-1 hover:text-pixel-accent hover:underline transition-colors group"
+                      className="flex items-center font-mono text-pixel-text py-1 hover:text-pixel-accent hover:underline transition-colors group"
                     >
                       <span className="ml-1">{file}</span>
                       <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -341,37 +341,37 @@ export default function ProjectDetailPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-pixel text-pixel-text mb-4">
+                <h3 className="text-2xl font-pixel text-pixel-text mb-4">
                   Mission Statistics
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Total
                     </div>
-                    <div className="text-2xl font-pixel text-pixel-text">{issues.length}</div>
+                    <div className="font-pixel text-pixel-text">{issues.length}</div>
                   </div>
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Active
                     </div>
-                    <div className="text-2xl font-pixel text-pixel-accent">
+                    <div className="font-pixel text-pixel-accent">
                       {issues.filter(i => i.status === 'open').length}
                     </div>
                   </div>
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Eliminated
                     </div>
-                    <div className="text-2xl font-pixel text-pixel-success">
+                    <div className="font-pixel text-pixel-success">
                       {issues.filter(i => ['solved', 'acknowledged'].includes(i.status)).length}
                     </div>
                   </div>
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-base text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Participants
                     </div>
-                    <div className="text-2xl font-pixel text-pixel-text">
+                    <div className="font-pixel text-pixel-text">
                       {leaderboard.length}
                     </div>
                   </div>

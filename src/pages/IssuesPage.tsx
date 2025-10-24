@@ -48,18 +48,18 @@ export default function IssuesPage() {
         {/* Project Selection */}
         <div className="pixel-card bg-pixel-bg-light border-pixel-border p-8">
           <div className="mb-6">
-            <h1 className="text-xl font-pixel text-pixel-text mb-2">Select Project</h1>
-            <p className="text-pixel-text-muted text-2xl">Choose the project for this issue</p>
+            <h1 className="text-2xl font-pixel text-pixel-text mb-2">Select Project</h1>
+            <p className="text-pixel-text-muted">Choose the project for this issue</p>
           </div>
 
-          <label className="block text-2xl font-medium text-pixel-text mb-4">
+          <label className="block font-medium text-pixel-text mb-4">
             Active Projects
           </label>
           <select
             required
             value={selectedProjectId}
             onChange={(e) => setSelectedProjectId(e.target.value)}
-            className="w-full pixel-input text-2xl"
+            className="w-full pixel-input"
           >
             <option value="">Select a project...</option>
             {projects
@@ -73,8 +73,8 @@ export default function IssuesPage() {
 
           {projects.filter(p => p.status === 'active').length === 0 && (
             <div className="mt-4 text-center py-8">
-              <p className="text-pixel-text-muted text-lg mb-2">No active projects available</p>
-              <p className="text-pixel-text-muted text-2xl">Wait for projects to be activated</p>
+              <p className="text-pixel-text-muted mb-2">No active projects available</p>
+              <p className="text-pixel-text-muted">Wait for projects to be activated</p>
             </div>
           )}
         </div>
@@ -101,11 +101,11 @@ export default function IssuesPage() {
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-pixel text-pixel-text mb-3">Issue Control Center</h1>
-            <p className="text-pixel-text-muted text-2xl">Track and eliminate security vulnerabilities across all missions</p>
+            <p className="text-pixel-text-muted">Track and eliminate security vulnerabilities across all missions</p>
           </div>
           <button
             onClick={handleNewIssue}
-            className="pixel-btn-primary text-2xl"
+            className="pixel-btn-primary"
           >
             Report Discovery
           </button>
