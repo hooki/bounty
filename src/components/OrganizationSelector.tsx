@@ -63,13 +63,13 @@ export default function OrganizationSelector({
       {/* Selected Organizations */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-pixel-text">
+          <span className="text-2xl font-medium text-pixel-text">
             Selected Organizations ({selectedOrgs.length})
           </span>
           {selectedOrgs.length > 0 && (
             <button
               onClick={clearAll}
-              className="text-xs text-pixel-text-muted hover:text-pixel-danger transition-colors"
+              className="text-sm text-pixel-text-muted hover:text-pixel-danger transition-colors"
             >
               Clear all
             </button>
@@ -78,7 +78,7 @@ export default function OrganizationSelector({
 
         {selectedOrgs.length === 0 ? (
           <div className="p-4 bg-pixel-bg border-2 border-pixel-border text-center">
-            <span className="text-sm text-pixel-text-muted">
+            <span className="text-2xl text-pixel-text-muted">
               No organizations selected. Will use owner's organization by default.
             </span>
           </div>
@@ -91,7 +91,7 @@ export default function OrganizationSelector({
                            bg-pixel-bg border-2 border-pixel-border hover:border-pixel-accent
                            transition-colors"
               >
-                <span className="text-sm font-medium text-pixel-text">{org}</span>
+                <span className="text-2xl font-medium text-pixel-text">{org}</span>
                 <button
                   onClick={() => removeOrganization(org)}
                   className="text-pixel-text-muted hover:text-pixel-danger transition-colors"
@@ -115,7 +115,7 @@ export default function OrganizationSelector({
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => setShowDropdown(true)}
             placeholder="Search organizations..."
-            className="w-full pixel-input text-base pl-10"
+            className="w-full pixel-input text-2xl pl-10"
             disabled={loading}
           />
           <div className="absolute left-3 top-3 text-pixel-text-muted">
@@ -124,7 +124,7 @@ export default function OrganizationSelector({
             ) : (
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             )}
           </div>
@@ -142,7 +142,7 @@ export default function OrganizationSelector({
                            transition-colors flex items-center justify-between group"
               >
                 <span className="text-pixel-text">{org}</span>
-                <span className="text-pixel-text-muted group-hover:text-pixel-accent text-sm">
+                <span className="text-pixel-text-muted group-hover:text-pixel-accent text-2xl">
                   Click to add
                 </span>
               </button>
@@ -153,7 +153,7 @@ export default function OrganizationSelector({
         {/* No Results */}
         {showDropdown && searchTerm && filteredOrgs.length === 0 && !loading && (
           <div className="absolute z-20 w-full mt-2 bg-pixel-bg border-2 border-pixel-border px-4 py-3">
-            <span className="text-pixel-text-muted text-sm">No organizations found matching "{searchTerm}"</span>
+            <span className="text-pixel-text-muted text-2xl">No organizations found matching "{searchTerm}"</span>
           </div>
         )}
       </div>

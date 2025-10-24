@@ -64,10 +64,10 @@ export default function ProfilePage() {
               <div className="text-lg font-medium text-pixel-text">
                 {user?.user_metadata?.user_name}
               </div>
-              <div className="text-sm text-pixel-text-muted">
+              <div className="text-2xl text-pixel-text-muted">
                 {user?.email}
               </div>
-              <div className="text-xs text-pixel-text-muted mt-1">
+              <div className="text-sm text-pixel-text-muted mt-1">
                 Hunter
               </div>
             </div>
@@ -82,7 +82,7 @@ export default function ProfilePage() {
               {!isEditing && (
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="pixel-btn-secondary text-sm"
+                  className="pixel-btn-secondary text-2xl"
                 >
                   Edit
                 </button>
@@ -91,10 +91,10 @@ export default function ProfilePage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-pixel-text-muted mb-2">
+                <label className="block text-2xl font-medium text-pixel-text-muted mb-2">
                   Wallet Address
                 </label>
-                <p className="text-xs text-pixel-text-muted mb-3">
+                <p className="text-sm text-pixel-text-muted mb-3">
                   Enter your EVM compatible wallet address to receive bug bounty rewards
                 </p>
                 {isEditing ? (
@@ -103,10 +103,10 @@ export default function ProfilePage() {
                     value={walletAddress}
                     onChange={(e) => setWalletAddress(e.target.value)}
                     placeholder="Enter your wallet address"
-                    className="w-full px-4 py-3 bg-pixel-bg border-2 border-pixel-border text-pixel-text font-mono text-sm focus:outline-none focus:border-pixel-accent"
+                    className="w-full px-4 py-3 bg-pixel-bg border-2 border-pixel-border text-pixel-text font-mono text-2xl focus:outline-none focus:border-pixel-accent"
                   />
                 ) : (
-                  <div className="px-4 py-3 bg-pixel-bg-light border-2 border-pixel-border text-pixel-text font-mono text-sm">
+                  <div className="px-4 py-3 bg-pixel-bg-light border-2 border-pixel-border text-pixel-text font-mono text-2xl">
                     {walletAddress || 'No wallet address set'}
                   </div>
                 )}
@@ -117,14 +117,14 @@ export default function ProfilePage() {
                   <button
                     onClick={handleSave}
                     disabled={saveLoading}
-                    className="pixel-btn text-sm"
+                    className="pixel-btn text-2xl"
                   >
                     {saveLoading ? 'Saving...' : 'Save'}
                   </button>
                   <button
                     onClick={handleCancel}
                     disabled={saveLoading}
-                    className="pixel-btn-secondary text-sm"
+                    className="pixel-btn-secondary text-2xl"
                   >
                     Cancel
                   </button>
@@ -140,14 +140,14 @@ export default function ProfilePage() {
             </h2>
             <div className="space-y-3">
               <div>
-                <div className="text-xs text-pixel-text-muted mb-1">Username</div>
-                <div className="text-sm text-pixel-text font-mono">
+                <div className="text-sm text-pixel-text-muted mb-1">Username</div>
+                <div className="text-2xl text-pixel-text font-mono">
                   {user?.user_metadata?.user_name}
                 </div>
               </div>
               <div>
-                <div className="text-xs text-pixel-text-muted mb-1">Organization</div>
-                <div className="text-sm text-pixel-text font-mono">
+                <div className="text-sm text-pixel-text-muted mb-1">Organization</div>
+                <div className="text-2xl text-pixel-text font-mono">
                   {profile?.organization || 'N/A'}
                 </div>
               </div>

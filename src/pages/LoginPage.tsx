@@ -25,7 +25,7 @@ export default function LoginPage() {
         <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
           Code Security Audit Platform
         </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        <p className="mt-2 text-center text-2xl text-gray-600">
           Sign in with your GitHub account to get started
         </p>
       </div>
@@ -35,7 +35,7 @@ export default function LoginPage() {
           <div className="space-y-6">
             {error && (
               <div className="bg-red-50 border border-red-200 rounded-md p-4">
-                <div className="text-sm text-red-600">{error}</div>
+                <div className="text-2xl text-red-600">{error}</div>
               </div>
             )}
 
@@ -43,7 +43,7 @@ export default function LoginPage() {
               <button
                 onClick={handleGitHubLogin}
                 disabled={loading}
-                className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
+                className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-2xl font-medium text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-200"
               >
                 {loading ? (
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -62,7 +62,7 @@ export default function LoginPage() {
               </button>
             </div>
 
-            <div className="text-xs text-gray-500 text-center">
+            <div className="text-sm text-gray-500 text-center">
               <p>
                 By signing in, you must be a member of a specific GitHub organization
                 <br />

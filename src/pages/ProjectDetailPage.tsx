@@ -161,7 +161,7 @@ export default function ProjectDetailPage() {
                 {isOwner && (
                   <button
                     onClick={handleVisibilityToggle}
-                    className="pixel-btn-secondary text-sm w-36"
+                    className="pixel-btn-secondary text-base"
                     title={`Click to change to ${getVisibilityConfig(project.visibility).next}`}
                   >
                     <span className="truncate">{getVisibilityConfig(project.visibility).title}</span>
@@ -171,7 +171,7 @@ export default function ProjectDetailPage() {
                 {isOwner && project.status === 'active' && (
                   <button
                     onClick={() => handleStatusChange('closed')}
-                    className="pixel-btn bg-pixel-danger text-white border-pixel-danger hover:bg-red-600 text-sm"
+                    className="pixel-btn bg-pixel-danger text-white border-pixel-danger hover:bg-red-600 text-base"
                   >
                     Close
                   </button>
@@ -182,10 +182,10 @@ export default function ProjectDetailPage() {
             {/* Organization Settings - visibility가 'organization'이고 owner일 때만 표시 */}
             {isOwner && project.visibility === 'organization' && (
               <div className="mb-6 p-4 bg-pixel-bg border-2 border-pixel-border">
-                <label className="block text-sm font-medium text-pixel-text mb-2">
+                <label className="block text-2xl font-medium text-pixel-text mb-2">
                   Allowed Organizations
                 </label>
-                <p className="text-xs text-pixel-text-muted mb-3">
+                <p className="text-sm text-pixel-text-muted mb-3">
                   Configure which organizations can access this mission
                 </p>
                 <OrganizationSelector
@@ -205,7 +205,7 @@ export default function ProjectDetailPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Reward Pool
                 </div>
                 <div className="text-xl font-pixel text-pixel-accent flex items-center justify-center gap-2">
@@ -213,27 +213,27 @@ export default function ProjectDetailPage() {
                   <img
                     src={project.reward_currency === 'USDC' ? '/images/usdc.png' : '/images/ton.svg'}
                     alt={project.reward_currency || 'TON'}
-                    className="w-6 h-6"
+                    className="w-9 h-9"
                   />
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Repository
                 </div>
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2">
-                  <div className="text-base font-medium text-pixel-accent truncate max-w-full">
+                  <div className="text-xl font-medium text-pixel-accent truncate max-w-full">
                     <a href={project.repository_url} target="_blank" rel="noopener noreferrer" className="hover:text-pixel-accent-hover">
                       {project.repository_url.replace('https://github.com/', '')}
                     </a>
                   </div>
-                  <div className="text-sm text-pixel-text-muted whitespace-nowrap">
+                  <div className="text-2xl text-pixel-text-muted whitespace-nowrap">
                     ({project.branch_name})
                   </div>
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Target Files
                 </div>
                 <div className="text-xl font-pixel text-pixel-text">
@@ -241,7 +241,7 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border text-center">
-                <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Lines of Code
                 </div>
                 <div className="text-xl font-pixel text-pixel-text">
@@ -255,22 +255,22 @@ export default function ProjectDetailPage() {
               {(['critical', 'high', 'medium', 'low'] as const).map((severity) => {
                 const amount = (project.reward_distribution as Record<string, number>)[severity] || 0;
                 const severityConfig = {
-                  critical: { color: 'text-red-500', label: 'Critical' },
-                  high: { color: 'text-orange-500', label: 'High' },
-                  medium: { color: 'text-yellow-500', label: 'Medium' },
-                  low: { color: 'text-gray-400', label: 'Low' }
+                  critical: { color: 'text-red-500', label: 'CRITICAL' },
+                  high: { color: 'text-orange-500', label: 'HIGH' },
+                  medium: { color: 'text-yellow-500', label: 'MEDIUM' },
+                  low: { color: 'text-gray-400', label: 'LOW' }
                 };
                 const config = severityConfig[severity];
                 const currencyIcon = project.reward_currency === 'USDC' ? '/images/usdc.png' : '/images/ton.svg';
 
                 return (
                   <div key={severity} className="text-center p-4 bg-pixel-bg border-2 border-pixel-border">
-                    <div className={`text-xs capitalize mb-2 uppercase tracking-wider font-medium ${config.color}`}>
+                    <div className={`text-2xl capitalize mb-2 uppercase tracking-wider font-medium ${config.color}`}>
                       {config.label}
                     </div>
-                    <div className="text-base font-pixel text-pixel-text flex items-center justify-center gap-2">
+                    <div className="text-xl font-pixel text-pixel-text flex items-center justify-center gap-2">
                       <span>{amount.toLocaleString()}</span>
-                      <img src={currencyIcon} alt={project.reward_currency || 'TON'} className="w-5 h-5" />
+                      <img src={currencyIcon} alt={project.reward_currency || 'TON'} className="w-9 h-9" />
                     </div>
                   </div>
                 );
@@ -288,7 +288,7 @@ export default function ProjectDetailPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`py-4 px-1 border-b-4 font-pixel text-xs transition-all duration-100 whitespace-nowrap ${activeTab === tab.id
+                className={`py-4 px-1 border-b-4 font-pixel text-sm transition-all duration-100 whitespace-nowrap ${activeTab === tab.id
                   ? 'border-pixel-accent text-pixel-accent'
                   : 'border-transparent text-pixel-text-muted hover:text-pixel-text hover:border-pixel-border'
                   }`}
@@ -309,7 +309,7 @@ export default function ProjectDetailPage() {
           {activeTab === 'description' && (
             <div className="space-y-6">
               <div className="prose prose-2xl max-w-none mb-6 prose-invert font-roboto">
-                <EnhancedMarkdown className="text-white">
+                <EnhancedMarkdown className="text-white text-2xl">
                   {project.description}
                 </EnhancedMarkdown>
               </div>
@@ -329,7 +329,7 @@ export default function ProjectDetailPage() {
                       href={getGitHubFileUrl(file)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-base font-mono text-pixel-text py-1 hover:text-pixel-accent hover:underline transition-colors group"
+                      className="flex items-center text-2xl font-mono text-pixel-text py-1 hover:text-pixel-accent hover:underline transition-colors group"
                     >
                       <span className="ml-1">{file}</span>
                       <svg className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -346,13 +346,13 @@ export default function ProjectDetailPage() {
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Total
                     </div>
                     <div className="text-2xl font-pixel text-pixel-text">{issues.length}</div>
                   </div>
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Active
                     </div>
                     <div className="text-2xl font-pixel text-pixel-accent">
@@ -360,7 +360,7 @@ export default function ProjectDetailPage() {
                     </div>
                   </div>
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Eliminated
                     </div>
                     <div className="text-2xl font-pixel text-pixel-success">
@@ -368,7 +368,7 @@ export default function ProjectDetailPage() {
                     </div>
                   </div>
                   <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                    <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                    <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
                       Participants
                     </div>
                     <div className="text-2xl font-pixel text-pixel-text">

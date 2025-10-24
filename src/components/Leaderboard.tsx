@@ -38,7 +38,7 @@ export default function Leaderboard({ entries, loading, projectTitle }: Leaderbo
       <div className="bg-pixel-bg-light border-2 border-pixel-border p-6">
         <div className="text-center py-8">
           <p className="text-pixel-text-muted">No hunters have joined the mission yet.</p>
-          <p className="text-pixel-text-muted text-sm mt-2">Be the first to discover vulnerabilities!</p>
+          <p className="text-pixel-text-muted text-2xl mt-2">Be the first to discover vulnerabilities!</p>
         </div>
       </div>
     );
@@ -53,7 +53,7 @@ export default function Leaderboard({ entries, loading, projectTitle }: Leaderbo
     ];
 
     return (
-      <div className={`w-10 h-10 ${rankColors[index] || rankColors[3]} border-2 border-pixel-border flex items-center justify-center text-sm font-pixel`}>
+      <div className={`w-10 h-10 ${rankColors[index] || rankColors[3]} border-2 border-pixel-border flex items-center justify-center text-2xl font-pixel`}>
         {index + 1}
       </div>
     );
@@ -87,7 +87,7 @@ export default function Leaderboard({ entries, loading, projectTitle }: Leaderbo
                       {entry.username}
                     </p>
                     {!projectTitle && (
-                      <p className="text-sm text-pixel-text-muted mt-1">
+                      <p className="text-2xl text-pixel-text-muted mt-1">
                         {entry.project_title}
                       </p>
                     )}
@@ -103,32 +103,32 @@ export default function Leaderboard({ entries, loading, projectTitle }: Leaderbo
                       className="w-6 h-6"
                     />
                   </div>
-                  <p className="text-xs text-pixel-text-muted uppercase tracking-wider">Bounty Earnings</p>
+                  <p className="text-sm text-pixel-text-muted uppercase tracking-wider">Bounty Earnings</p>
                 </div>
               </div>
 
               {/* Severity Breakdown */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div className="text-center p-3 bg-pixel-bg border-2 border-pixel-border">
-                  <div className="text-xs text-red-500 font-medium mb-1 uppercase tracking-wider">
+                  <div className="text-sm text-red-500 font-medium mb-1 uppercase tracking-wider">
                     Critical
                   </div>
                   <div className="text-lg font-pixel text-pixel-text">{entry.critical_issues}</div>
                 </div>
                 <div className="text-center p-3 bg-pixel-bg border-2 border-pixel-border">
-                  <div className="text-xs text-orange-500 font-medium mb-1 uppercase tracking-wider">
+                  <div className="text-sm text-orange-500 font-medium mb-1 uppercase tracking-wider">
                     High
                   </div>
                   <div className="text-lg font-pixel text-pixel-text">{entry.high_issues}</div>
                 </div>
                 <div className="text-center p-3 bg-pixel-bg border-2 border-pixel-border">
-                  <div className="text-xs text-yellow-500 font-medium mb-1 uppercase tracking-wider">
+                  <div className="text-sm text-yellow-500 font-medium mb-1 uppercase tracking-wider">
                     Medium
                   </div>
                   <div className="text-lg font-pixel text-pixel-text">{entry.medium_issues}</div>
                 </div>
                 <div className="text-center p-3 bg-pixel-bg border-2 border-pixel-border">
-                  <div className="text-xs text-gray-400 font-medium mb-1 uppercase tracking-wider">
+                  <div className="text-sm text-gray-400 font-medium mb-1 uppercase tracking-wider">
                     Low
                   </div>
                   <div className="text-lg font-pixel text-pixel-text">{entry.low_issues}</div>

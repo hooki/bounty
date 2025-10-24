@@ -149,9 +149,8 @@ export default function FileTree({ files, selectedFiles, onFileToggle, onDirecto
     return (
       <div key={node.path}>
         <div
-          className={`flex items-center py-1 px-2 hover:bg-gray-50 transition duration-150 ${
-            isSelected ? 'bg-blue-50' : ''
-          }`}
+          className={`flex items-center py-1 px-2 hover:bg-gray-50 transition duration-150 ${isSelected ? 'bg-blue-50' : ''
+            }`}
           style={{ paddingLeft: `${level * 20 + 8}px` }}
         >
           {/* 확장/축소 아이콘 (디렉토리만) */}
@@ -220,13 +219,13 @@ export default function FileTree({ files, selectedFiles, onFileToggle, onDirecto
             </div>
 
             {/* 파일/디렉토리 이름 */}
-            <span className="text-sm font-mono text-gray-700 flex-1">
+            <span className="text-2xl font-mono text-gray-700 flex-1">
               {node.name}
             </span>
 
             {/* 파일 크기 */}
             {node.type === 'file' && node.size && (
-              <span className="text-xs text-gray-500 ml-2">
+              <span className="text-sm text-gray-500 ml-2">
                 {(node.size / 1024).toFixed(1)} KB
               </span>
             )}

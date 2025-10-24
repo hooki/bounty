@@ -49,17 +49,17 @@ export default function IssuesPage() {
         <div className="pixel-card bg-pixel-bg-light border-pixel-border p-8">
           <div className="mb-6">
             <h1 className="text-xl font-pixel text-pixel-text mb-2">Select Project</h1>
-            <p className="text-pixel-text-muted text-base">Choose the project for this issue</p>
+            <p className="text-pixel-text-muted text-2xl">Choose the project for this issue</p>
           </div>
 
-          <label className="block text-sm font-medium text-pixel-text mb-4">
+          <label className="block text-2xl font-medium text-pixel-text mb-4">
             Active Projects
           </label>
           <select
             required
             value={selectedProjectId}
             onChange={(e) => setSelectedProjectId(e.target.value)}
-            className="w-full pixel-input text-base"
+            className="w-full pixel-input text-2xl"
           >
             <option value="">Select a project...</option>
             {projects
@@ -74,7 +74,7 @@ export default function IssuesPage() {
           {projects.filter(p => p.status === 'active').length === 0 && (
             <div className="mt-4 text-center py-8">
               <p className="text-pixel-text-muted text-lg mb-2">No active projects available</p>
-              <p className="text-pixel-text-muted text-sm">Wait for projects to be activated</p>
+              <p className="text-pixel-text-muted text-2xl">Wait for projects to be activated</p>
             </div>
           )}
         </div>
@@ -96,59 +96,22 @@ export default function IssuesPage() {
 
   return (
     <div className="space-y-6">
-      {/* Bug Hunt Command Center */}
+      {/* Hero Section */}
       <div className="pixel-card bg-pixel-bg-light border-pixel-border p-8">
-        <div className="flex justify-between items-start mb-6">
+        <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-pixel text-pixel-text mb-3">Issue Control Center</h1>
-            <p className="text-pixel-text-muted text-base">Track and eliminate security vulnerabilities across all missions</p>
+            <p className="text-pixel-text-muted text-2xl">Track and eliminate security vulnerabilities across all missions</p>
           </div>
           <button
             onClick={handleNewIssue}
-            className="pixel-btn-primary text-base"
+            className="pixel-btn-primary text-2xl"
           >
             Report Discovery
           </button>
         </div>
-
-        {/* Statistics Dashboard */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-            <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
-              Total
-            </div>
-            <div className="text-2xl font-pixel text-pixel-text">
-              {issues.length}
-            </div>
-          </div>
-          <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-            <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
-              Active
-            </div>
-            <div className="text-2xl font-pixel text-pixel-accent">
-              {issues.filter(i => i.status === 'open').length}
-            </div>
-          </div>
-          <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-            <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
-              Eliminated
-            </div>
-            <div className="text-2xl font-pixel text-pixel-success">
-              {issues.filter(i => ['solved', 'acknowledged'].includes(i.status)).length}
-            </div>
-          </div>
-          <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-            <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
-              Critical Threats
-            </div>
-            <div className="text-2xl font-pixel text-pixel-danger">
-              {issues.filter(i => i.severity === 'critical' && i.status === 'open').length}
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Bug Hunt Results */}
       <IssueList
         issues={issues}
         loading={loading}

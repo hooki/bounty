@@ -81,19 +81,19 @@ export default function Settlement({ settlements, loading, rewardCurrency }: Set
           <table className="w-full">
             <thead className="bg-pixel-bg border-b-2 border-pixel-border">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-pixel-text-muted uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-pixel-text-muted uppercase tracking-wider">
                   #
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-pixel-text-muted uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-pixel-text-muted uppercase tracking-wider">
                   Hunter
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-pixel-text-muted uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-pixel-text-muted uppercase tracking-wider">
                   Wallet Address
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-pixel-text-muted uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-sm font-medium text-pixel-text-muted uppercase tracking-wider">
                   Issues
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-pixel-text-muted uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-sm font-medium text-pixel-text-muted uppercase tracking-wider">
                   Reward
                 </th>
               </tr>
@@ -102,7 +102,7 @@ export default function Settlement({ settlements, loading, rewardCurrency }: Set
               {settlements.map((settlement, index) => (
                 <tr key={settlement.user_id} className="hover:bg-pixel-bg transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm font-pixel text-pixel-text">{index + 1}</span>
+                    <span className="text-2xl font-pixel text-pixel-text">{index + 1}</span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center space-x-3">
@@ -111,13 +111,13 @@ export default function Settlement({ settlements, loading, rewardCurrency }: Set
                         src={settlement.avatar_url}
                         alt={settlement.username}
                       />
-                      <span className="text-sm font-medium text-pixel-text">{settlement.username}</span>
+                      <span className="text-2xl font-medium text-pixel-text">{settlement.username}</span>
                     </div>
                   </td>
                   <td className="px-6 py-4">
                     {settlement.wallet_address ? (
                       <div className="flex items-center space-x-2">
-                        <span className="text-sm font-mono text-pixel-text">
+                        <span className="text-2xl font-mono text-pixel-text">
                           {settlement.wallet_address}
                         </span>
                         <button
@@ -131,13 +131,13 @@ export default function Settlement({ settlements, loading, rewardCurrency }: Set
                         </button>
                       </div>
                     ) : (
-                      <span className="text-sm text-pixel-danger font-medium">
+                      <span className="text-2xl text-pixel-danger font-medium">
                         No wallet address
                       </span>
                     )}
                   </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center space-x-2 text-xs">
+                    <div className="flex items-center space-x-2 text-sm">
                       {settlement.critical_issues > 0 && (
                         <span className="bg-pixel-bg px-2 py-1 border border-pixel-border">
                           <span className="text-red-500">C:</span> {settlement.critical_issues}
@@ -181,8 +181,8 @@ export default function Settlement({ settlements, loading, rewardCurrency }: Set
           <div className="flex items-start space-x-3">
             <span className="text-yellow-500 text-xl">⚠</span>
             <div>
-              <h4 className="text-sm font-medium text-yellow-500 mb-1">Missing Wallet Addresses</h4>
-              <p className="text-xs text-yellow-200">
+              <h4 className="text-2xl font-medium text-yellow-500 mb-1">Missing Wallet Addresses</h4>
+              <p className="text-sm text-yellow-200">
                 Some hunters have not set their wallet addresses. They need to add their wallet address in their profile settings to receive rewards.
               </p>
             </div>

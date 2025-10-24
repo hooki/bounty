@@ -299,7 +299,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
       {/* Mission Registration Header */}
       <div className="mb-8 border-b-4 border-pixel-border pb-4">
         <h2 className="text-2xl font-pixel text-pixel-text">Mission Registration</h2>
-        <p className="text-pixel-text-muted mt-2">Deploy a new bug bounty mission</p>
+        <p className="text-pixel-text-muted mt-2 text-xl">Deploy a new bug bounty mission</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
@@ -311,7 +311,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
 
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
+              <label className="block text-2xl font-medium text-pixel-text mb-3 flex items-center">
 
                 <span>Title</span>
               </label>
@@ -320,16 +320,16 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                 required
                 value={formData.title}
                 onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+                className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted text-xl focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
                 placeholder="Enter title (e.g., Operation SecureVault, Security Audit, etc.)"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-pixel-text mb-4 flex items-center">
+              <label className="block text-2xl font-medium text-pixel-text mb-4 flex items-center">
                 <span>Visibility</span>
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4  text-xl">
                 {[
                   { value: 'public', icon: '', title: 'Public', desc: 'All users' },
                   { value: 'organization', icon: '', title: 'Invite', desc: 'Invited only' },
@@ -356,12 +356,12 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                         <div className="w-2 h-2 bg-primary-500 rounded-full animate-pulse-fast"></div>
                       )}
                     </div>
-                    <p className="text-xs text-pixel-text-muted leading-relaxed">{option.desc}</p>
+                    <p className="text-pixel-text-muted leading-relaxed">{option.desc}</p>
                   </label>
                 ))}
               </div>
               <div className="mt-4 p-3 bg-gradient-to-r from-gray-700/50 to-gray-800/50 rounded-lg border border-gray-600">
-                <div className="flex items-center text-sm">
+                <div className="flex items-center text-2xl">
                   <span className="text-lg">
                     {formData.visibility === 'public' && ''}
                     {formData.visibility === 'organization' && ''}
@@ -380,11 +380,11 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
             {/* Organization Selector - visibility가 'organization'일 때만 표시 */}
             {formData.visibility === 'organization' && (
               <div>
-                <label className="block text-sm font-medium text-pixel-text mb-2 flex items-center">
+                <label className="block text-2xl font-medium text-pixel-text mb-2 flex items-center">
 
                   <span>Allowed Organizations (Optional)</span>
                 </label>
-                <p className="text-xs text-pixel-text-muted mb-3">
+                <p className="text-xl text-pixel-text-muted mb-3">
                   Leave empty to restrict to your organization only, or add specific organizations
                 </p>
                 <OrganizationSelector
@@ -401,7 +401,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
             <div className="flex flex-col gap-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
+                  <label className="block text-2xl font-medium text-pixel-text mb-3 flex items-center">
 
                     <span>Start Date (Optional)</span>
                   </label>
@@ -417,7 +417,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
+                  <label className="block text-2xl font-medium text-pixel-text mb-3 flex items-center">
 
                     <span>End Date (Optional)</span>
                   </label>
@@ -455,7 +455,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                         end_date: endDate.toISOString().split('T')[0]
                       }));
                     }}
-                    className="px-3 py-2 text-xs font-pixel bg-pixel-bg border-2 border-pixel-border text-pixel-text hover:border-pixel-accent hover:bg-pixel-accent hover:text-white transition-all duration-200"
+                    className="px-3 py-2 text-sm font-pixel bg-pixel-bg border-2 border-pixel-border text-pixel-text hover:border-pixel-accent hover:bg-pixel-accent hover:text-white transition-all duration-200"
                   >
                     {option.label}
                   </button>
@@ -465,14 +465,14 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
 
             <div>
               <div className="flex items-center justify-between mb-4">
-                <label className="block text-sm font-medium text-pixel-text">
+                <label className="block text-2xl font-medium text-pixel-text">
                   Description
                 </label>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => setShowPreview(false)}
-                    className={`px-4 py-2 text-sm font-pixel border-2 transition-colors ${!showPreview
+                    className={`px-4 py-2 text-base font-pixel border-2 transition-colors ${!showPreview
                       ? 'bg-pixel-accent text-white border-pixel-accent'
                       : 'bg-pixel-bg text-pixel-text border-pixel-border hover:border-pixel-accent'
                       }`}
@@ -482,7 +482,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                   <button
                     type="button"
                     onClick={() => setShowPreview(true)}
-                    className={`px-4 py-2 text-sm font-pixel border-2 transition-colors ${showPreview
+                    className={`px-4 py-2 text-base font-pixel border-2 transition-colors ${showPreview
                       ? 'bg-pixel-accent text-white border-pixel-accent'
                       : 'bg-pixel-bg text-pixel-text border-pixel-border hover:border-pixel-accent'
                       }`}
@@ -513,7 +513,7 @@ export default function ProjectForm({ onSubmit, onCancel, loading = false }: Pro
                   required
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                  className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300 font-sans text-base antialiased"
+                  className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300 font-sans text-2xl antialiased"
                   placeholder="Provide detailed mission briefing in markdown format:
 
 ## Mission Objective
@@ -537,9 +537,9 @@ Additional areas of interest for extra bounty consideration..."
               )}
 
               <div className="flex items-center mt-3">
-                <span className="text-xs text-pixel-text-muted"> Supports markdown syntax</span>
-                <span className="text-xs text-gray-500">|</span>
-                <span className="text-xs text-pixel-text-muted"> Code blocks: ```language-name</span>
+                <span className="text-sm text-pixel-text-muted"> Supports markdown syntax</span>
+                <span className="text-sm text-gray-500">|</span>
+                <span className="text-sm text-pixel-text-muted"> Code blocks: ```language-name</span>
               </div>
             </div>
           </div>
@@ -554,7 +554,7 @@ Additional areas of interest for extra bounty consideration..."
 
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="block text-sm font-medium text-pixel-text flex items-center space-x-2">
+              <label className="block text-2xl font-medium text-pixel-text flex items-center space-x-2">
                 <svg className="w-4 h-4 text-pixel-text" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
                 </svg>
@@ -564,7 +564,7 @@ Additional areas of interest for extra bounty consideration..."
                 type="button"
                 onClick={() => loadRepos(true)}
                 disabled={loadingRepos}
-                className="px-3 py-1 text-xs font-pixel bg-pixel-bg border-2 border-pixel-border text-pixel-text hover:border-pixel-accent hover:bg-pixel-accent hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                className="px-3 py-1 text-sm font-pixel bg-pixel-bg border-2 border-pixel-border text-pixel-text hover:border-pixel-accent hover:bg-pixel-accent hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
                 <svg className={`w-3 h-3 ${loadingRepos ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -577,7 +577,7 @@ Additional areas of interest for extra bounty consideration..."
                 <div className="text-4xl mb-4 animate-bounce-slow"></div>
                 <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-pixel-accent mx-auto mb-4"></div>
                 <p className="text-pixel-text font-medium">Scanning repositories...</p>
-                <div className="mt-2 text-pixel-text-muted text-sm"> Loading GitHub targets</div>
+                <div className="mt-2 text-pixel-text-muted text-2xl"> Loading GitHub targets</div>
               </div>
             ) : (
               <select
@@ -603,14 +603,14 @@ Additional areas of interest for extra bounty consideration..."
         {/* Branch Selection */}
         {selectedRepo && (
           <div className="bg-pixel-bg p-6 border-2 border-pixel-border">
-            <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
+            <label className="block text-2xl font-medium text-pixel-text mb-3 flex items-center">
 
               <span>Target Branch</span>
             </label>
             {loadingBranches ? (
               <div className="text-center py-4">
                 <div className="animate-spin rounded-full h-6 w-6 border-b-4 border-pixel-accent mx-auto mb-2"></div>
-                <p className="text-pixel-text-muted text-sm">Loading branches...</p>
+                <p className="text-pixel-text-muted text-2xl">Loading branches...</p>
               </div>
             ) : (
               <select
@@ -633,11 +633,11 @@ Additional areas of interest for extra bounty consideration..."
         {/* File Selection */}
         {formData.branch_name && (
           <div className="bg-pixel-bg p-6 border-2 border-pixel-border">
-            <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
+            <label className="block text-2xl font-medium text-pixel-text mb-3 flex items-center">
 
               <span>Mission Target Files</span>
             </label>
-            <p className="text-xs text-pixel-text-muted mb-4 bg-gray-700/50 p-3 rounded-lg border border-gray-600">
+            <p className="text-sm text-pixel-text-muted mb-4 bg-gray-700/50 p-3 rounded-lg border border-gray-600">
               <strong>Tactical Instructions:</strong> Click on files to select individually, or click on directories to select all files within them.
             </p>
             {loadingFiles ? (
@@ -645,7 +645,7 @@ Additional areas of interest for extra bounty consideration..."
                 <div className="text-4xl mb-4 animate-bounce-slow"></div>
                 <div className="animate-spin rounded-full h-8 w-8 border-b-4 border-pixel-accent mx-auto mb-4"></div>
                 <p className="text-pixel-text font-medium">Scanning target files...</p>
-                <div className="mt-2 text-pixel-text-muted text-sm"> Analyzing file structure</div>
+                <div className="mt-2 text-pixel-text-muted text-2xl"> Analyzing file structure</div>
               </div>
             ) : (
               <FileTree
@@ -673,7 +673,7 @@ Additional areas of interest for extra bounty consideration..."
                 </div>
               </div>
               {formData.selected_files.length > 0 && (
-                <div className="text-xs text-pixel-text">
+                <div className="text-sm text-pixel-text">
                   <details>
                     <summary className="cursor-pointer hover:text-pixel-text transition-colors duration-300 flex items-center">
                       <span></span>
@@ -681,7 +681,7 @@ Additional areas of interest for extra bounty consideration..."
                     </summary>
                     <div className="mt-3 max-h-32 overflow-y-auto bg-gray-800/50 rounded p-3 border border-gray-600">
                       {formData.selected_files.map(file => (
-                        <div key={file} className="font-mono text-xs py-1 text-pixel-text hover:text-pixel-text transition-colors">
+                        <div key={file} className="font-mono text-sm py-1 text-pixel-text hover:text-pixel-text transition-colors">
                           {file}
                         </div>
                       ))}
@@ -700,8 +700,8 @@ Additional areas of interest for extra bounty consideration..."
             <span>Reward Configuration</span>
           </h3>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-pixel-text mb-4 flex items-center">
+          <div className="mb-6 text-xl">
+            <label className="block text-2xl font-medium text-pixel-text mb-4 flex items-center">
 
               <span>Reward Currency</span>
             </label>
@@ -734,14 +734,14 @@ Additional areas of interest for extra bounty consideration..."
                       </div>
                     )}
                   </div>
-                  <p className="text-xs text-pixel-text-muted leading-relaxed">{option.desc}</p>
+                  <p className="text-pixel-text-muted leading-relaxed">{option.desc}</p>
                 </label>
               ))}
             </div>
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-pixel-text mb-3 flex items-center">
+            <label className="block text-2xl font-medium text-pixel-text mb-3 flex items-center">
 
               <span>Total Reward Pool ({formData.reward_currency})</span>
             </label>
@@ -751,20 +751,20 @@ Additional areas of interest for extra bounty consideration..."
               min="1"
               value={formData.total_reward_pool}
               onChange={(e) => setFormData(prev => ({ ...prev, total_reward_pool: parseInt(e.target.value) }))}
-              className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+              className="w-full px-4 py-3 pixel-input placeholder-pixel-text-muted text-2xl focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
             />
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-pixel-text mb-4 flex items-center">
+            <label className="block text-2xl font-medium text-pixel-text mb-4 flex items-center">
 
               <span>Threat Level Bounties</span>
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Object.entries(formData.reward_distribution).map(([severity, amount]) => (
                 <div key={severity} className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
-                  <label className="block text-sm font-medium text-pixel-text mb-3 capitalize flex items-center">
-                    <span>{severity}</span>
+                  <label className="block text-2xl font-medium text-pixel-text mb-3 capitalize flex items-center">
+                    <span>{severity.toUpperCase()}</span>
                   </label>
                   <input
                     type="number"
@@ -772,7 +772,7 @@ Additional areas of interest for extra bounty consideration..."
                     min="0"
                     value={amount}
                     onChange={(e) => handleRewardDistributionChange(severity as keyof typeof formData.reward_distribution, parseInt(e.target.value))}
-                    className="w-full px-3 py-2 pixel-input focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
+                    className="w-full text-2xl px-3 py-2 pixel-input focus:outline-none focus:ring-2 focus:border-pixel-accent transition-all duration-300"
                   />
                 </div>
               ))}
@@ -780,13 +780,13 @@ Additional areas of interest for extra bounty consideration..."
           </div>
 
           <div className="bg-gradient-to-r from-gray-700 to-gray-800 rounded-lg p-4 border border-gray-600">
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center justify-between text-2xl">
               <span className="text-pixel-text flex items-center">
 
                 <span>Distribution Total:</span>
               </span>
               <div className="flex items-center">
-                <span className={`font-bold text-lg ${totalDistribution === formData.total_reward_pool ? 'text-neon-green animate-pulse-fast' : 'text-red-400'}`}>
+                <span className={`font-bold text-2xl ${totalDistribution === formData.total_reward_pool ? 'text-neon-green animate-pulse-fast' : 'text-red-400'}`}>
                   {totalDistribution.toLocaleString()} {formData.reward_currency}
                 </span>
                 <span className="text-pixel-text-muted">/</span>
@@ -794,7 +794,7 @@ Additional areas of interest for extra bounty consideration..."
               </div>
             </div>
             {totalDistribution !== formData.total_reward_pool && (
-              <div className="mt-2 text-xs text-red-400 flex items-center">
+              <div className="mt-2 text-base text-red-400 flex items-center">
 
                 <span>Distribution must equal total pool amount</span>
               </div>

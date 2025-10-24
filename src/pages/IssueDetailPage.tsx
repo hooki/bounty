@@ -143,7 +143,7 @@ export default function IssueDetailPage() {
 
   const renderStatusBadge = (status: string) => {
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(status)}`}>
+      <span className={`inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getStatusColor(status)}`}>
         {getStatusLabel(status)}
       </span>
     );
@@ -161,10 +161,32 @@ export default function IssueDetailPage() {
 
   const renderSeverityBadge = (severity: string) => {
     return (
-      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getSeverityColor(severity)}`}>
+      <span className={`inline-flex items-center px-2 py-1 rounded-full text-sm font-medium ${getSeverityColor(severity)}`}>
         {getSeverityLabel(severity)}
       </span>
     );
+  };
+
+  const getStatusTextColor = (status: string) => {
+    switch (status) {
+      case 'open': return 'text-pixel-accent';
+      case 'in_progress': return 'text-blue-600';
+      case 'solved': return 'text-pixel-success';
+      case 'acknowledged': return 'text-green-700';
+      case 'invalid': return 'text-pixel-text-muted';
+      case 'duplicated': return 'text-yellow-600';
+      default: return 'text-pixel-text';
+    }
+  };
+
+  const getSeverityTextColor = (severity: string) => {
+    switch (severity) {
+      case 'critical': return 'text-red-500';
+      case 'high': return 'text-orange-500';
+      case 'medium': return 'text-yellow-500';
+      case 'low': return 'text-gray-400';
+      default: return 'text-pixel-text';
+    }
   };
 
   const renderCommentContent = (content: string, isSystemGenerated: boolean) => {
@@ -180,7 +202,7 @@ export default function IssueDetailPage() {
       const [, fromStatus, toStatus] = statusMatch;
       return (
         <span>
-          Status changed from {renderStatusBadge(fromStatus)} to {renderStatusBadge(toStatus)}.
+          Status changed from <span className={`font-bold ${getStatusTextColor(fromStatus)}`}>{getStatusLabel(fromStatus)}</span> to <span className={`font-bold ${getStatusTextColor(toStatus)}`}>{getStatusLabel(toStatus)}</span>.
         </span>
       );
     }
@@ -193,7 +215,7 @@ export default function IssueDetailPage() {
       const [, fromSeverity, toSeverity] = severityMatch;
       return (
         <span>
-          Severity changed from {renderSeverityBadge(fromSeverity)} to {renderSeverityBadge(toSeverity)}.
+          Severity changed from <span className={`font-bold ${getSeverityTextColor(fromSeverity)}`}>{getSeverityLabel(fromSeverity)}</span> to <span className={`font-bold ${getSeverityTextColor(toSeverity)}`}>{getSeverityLabel(toSeverity)}</span>.
         </span>
       );
     }
@@ -227,7 +249,7 @@ export default function IssueDetailPage() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Hunter
                 </div>
                 <div className="flex items-center space-x-2 mt-2">
@@ -236,26 +258,26 @@ export default function IssueDetailPage() {
                     src={issue.reporter.avatar_url}
                     alt={issue.reporter.username}
                   />
-                  <span className="text-pixel-text font-medium">{issue.reporter.username}</span>
+                  <span className="text-pixel-text font-medium text-xl">{issue.reporter.username}</span>
                 </div>
               </div>
               <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
                   Discovered
                 </div>
-                <div className="text-pixel-text font-medium mt-1">
+                <div className="text-pixel-text font-medium mt-1 text-xl">
                   {new Date(issue.created_at).toLocaleDateString('en-US')}
                 </div>
               </div>
               {issue.project && (
                 <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                  <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                  <div className="text-2xl text-pixel-text-muted mb-2 uppercase tracking-wider">
                     Mission
                   </div>
                   {issue.can_access_project ? (
                     <Link
                       to={`/projects/${issue.project_id}`}
-                      className="text-pixel-accent hover:text-pixel-accent-hover font-medium mt-1 block truncate"
+                      className="text-pixel-accent hover:text-pixel-accent-hover font-medium mt-1 block truncate text-xl"
                     >
                       {issue.project.title}
                     </Link>
@@ -268,7 +290,7 @@ export default function IssueDetailPage() {
               )}
               {issue.github_issue_url && (
                 <div className="bg-pixel-bg p-4 border-2 border-pixel-border">
-                  <div className="text-xs text-pixel-text-muted mb-2 uppercase tracking-wider">
+                  <div className="text-sm text-pixel-text-muted mb-2 uppercase tracking-wider">
                     GitHub
                   </div>
                   <a
@@ -299,11 +321,11 @@ export default function IssueDetailPage() {
             {isProjectOwner && (
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
-                  <label className="block text-sm font-medium text-pixel-text-muted mb-2">Status Control</label>
+                  <label className="block text-2xl font-medium text-pixel-text-muted mb-2">Status Control</label>
                   <select
                     value={issue.status}
                     onChange={(e) => handleStatusChange(e.target.value as "open" | "in_progress" | "solved" | "acknowledged" | "invalid" | "duplicated")}
-                    className="pixel-input text-base w-full"
+                    className="pixel-input text-2xl w-full"
                   >
                     <option value="open">Open</option>
                     <option value="in_progress">In Progress</option>
@@ -314,11 +336,11 @@ export default function IssueDetailPage() {
                   </select>
                 </div>
                 <div className="flex-1">
-                  <label className="block text-sm font-medium text-pixel-text-muted mb-2">Severity Control</label>
+                  <label className="block text-2xl font-medium text-pixel-text-muted mb-2">Severity Control</label>
                   <select
                     value={issue.severity}
                     onChange={(e) => handleSeverityChange(e.target.value as "low" | "medium" | "high" | "critical")}
-                    className="pixel-input text-base w-full"
+                    className="pixel-input text-2xl w-full"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -348,7 +370,7 @@ export default function IssueDetailPage() {
           Description
         </h2>
         <div className="prose prose-2xl max-w-none prose-invert font-roboto">
-          <EnhancedMarkdown>
+          <EnhancedMarkdown className="text-2xl">
             {issue.description}
           </EnhancedMarkdown>
         </div>
@@ -368,7 +390,7 @@ export default function IssueDetailPage() {
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Add a comment..."
-              className="w-full pixel-input text-base"
+              className="w-full pixel-input text-2xl"
             />
             <div className="mt-4 flex justify-end">
               <button
@@ -398,29 +420,30 @@ export default function IssueDetailPage() {
         ) : comments.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-pixel-text-muted text-lg mb-2">No comments yet</p>
-            <p className="text-pixel-text-muted text-sm">Be the first to comment</p>
+            <p className="text-pixel-text-muted text-2xl">Be the first to comment</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-4 text-2xl">
             {comments.map((comment) => (
               <div key={comment.id} className="bg-pixel-bg border-2 border-pixel-border p-6 hover:bg-pixel-bg-light transition-colors">
                 <div className="flex items-start space-x-4">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={comment.user.avatar_url}
-                    alt={comment.user.username}
-                  />
+                  {comment.is_system_generated ? (
+                    <div className="h-10 w-10 rounded-full bg-pixel-accent flex items-center justify-center text-2xl">
+                      🤖
+                    </div>
+                  ) : (
+                    <img
+                      className="h-10 w-10 rounded-full"
+                      src={comment.user.avatar_url}
+                      alt={comment.user.username}
+                    />
+                  )}
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-3">
-                      <span className="font-bold text-pixel-text">
-                        {comment.user.username}
+                      <span className={`font-bold ${comment.is_system_generated ? 'text-pixel-accent' : 'text-pixel-text'}`}>
+                        {comment.is_system_generated ? 'SYSTEM' : comment.user.username}
                       </span>
-                      {comment.is_system_generated && (
-                        <span className="bg-pixel-accent text-white text-xs px-3 py-1 font-bold border border-pixel-accent">
-                          SYSTEM
-                        </span>
-                      )}
-                      <span className="text-sm text-pixel-text-muted">
+                      <span className="text-pixel-text-muted">
                         {new Date(comment.created_at).toLocaleDateString('en-US')}
                       </span>
                     </div>

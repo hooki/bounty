@@ -48,7 +48,7 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
       <div className={`flex items-center justify-center py-8 ${className || ''}`}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-pixel-accent mx-auto mb-2"></div>
-          <p className="text-sm text-pixel-text-muted">Loading code...</p>
+          <p className="text-2xl text-pixel-text-muted">Loading code...</p>
         </div>
       </div>
     );
@@ -59,10 +59,10 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
       <div className={`border-l-4 border-pixel-warning bg-pixel-bg p-4 ${className || ''}`}>
         <div className="flex">
           <div className="ml-3">
-            <p className="text-sm text-pixel-text">
+            <p className="text-2xl text-pixel-text">
               {error}
             </p>
-            <p className="text-xs text-pixel-text-muted mt-1">
+            <p className="text-sm text-pixel-text-muted mt-1">
               Showing original content without GitHub code embedding.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
                     {String(children).replace(/\n$/, '')}
                   </SyntaxHighlighter>
                 ) : (
-                  <code className="bg-pixel-bg text-pixel-accent px-1 py-0.5 text-sm" {...props}>
+                  <code className="bg-pixel-bg text-pixel-accent px-1 py-0.5 text-2xl" {...props}>
                     {children}
                   </code>
                 );
@@ -123,14 +123,14 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
               },
               th({ children }) {
                 return (
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-300 uppercase tracking-wider">
                     {children}
                   </th>
                 );
               },
               td({ children }) {
                 return (
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                  <td className="px-6 py-4 whitespace-nowrap text-2xl text-gray-300">
                     {children}
                   </td>
                 );
@@ -192,7 +192,7 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
             // GitHub 코드 블록 헤더 감지
             if (content.includes('📄') && content.includes('🔗 View on GitHub')) {
               return (
-                <div className="bg-gradient-to-r from-gray-700 to-gray-800 px-4 py-2 rounded-t-lg border border-gray-600 flex items-center justify-between text-sm">
+                <div className="bg-gradient-to-r from-gray-700 to-gray-800 px-4 py-2 rounded-t-lg border border-gray-600 flex items-center justify-between text-2xl">
                   <span className="text-white font-medium">{children}</span>
                 </div>
               );
@@ -232,14 +232,14 @@ export default function GitHubCodeEmbed({ content, className }: GitHubCodeEmbedP
           },
           th({ children }) {
             return (
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-300 uppercase tracking-wider">
                 {children}
               </th>
             );
           },
           td({ children }) {
             return (
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+              <td className="px-6 py-4 whitespace-nowrap text-2xl text-gray-300">
                 {children}
               </td>
             );

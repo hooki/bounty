@@ -47,12 +47,12 @@ export default function RewardBreakdown({ breakdown, loading, onCalculate }: Rew
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-lg font-medium text-gray-900">Reward Distribution</h3>
-            <p className="text-sm text-gray-600">Actual reward distribution status when project ends</p>
+            <p className="text-2xl text-gray-600">Actual reward distribution status when project ends</p>
           </div>
           <button
             onClick={onCalculate}
             disabled={loading}
-            className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50"
+            className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-2xl font-medium disabled:opacity-50"
           >
             {loading ? 'Calculating...' : 'Calculate Rewards'}
           </button>
@@ -62,7 +62,7 @@ export default function RewardBreakdown({ breakdown, loading, onCalculate }: Rew
       {Object.keys(breakdown).length === 0 ? (
         <div className="p-6 text-center text-gray-500">
           <p className="mb-4">Click the calculate rewards button to check the current reward distribution status.</p>
-          <div className="text-xs text-left bg-blue-50 border border-blue-200 rounded p-3">
+          <div className="text-sm text-left bg-blue-50 border border-blue-200 rounded p-3">
             <p className="font-medium text-blue-800 mb-2">Reward Distribution Rules:</p>
             <ul className="text-blue-700 space-y-1">
               <li>• Each severity level has its own reward pool</li>
@@ -80,7 +80,7 @@ export default function RewardBreakdown({ breakdown, loading, onCalculate }: Rew
               <div className="text-2xl font-bold text-gray-900">
                 ${totalRewardsPaid.toLocaleString()}
               </div>
-              <div className="text-sm text-gray-600">Total Expected Rewards</div>
+              <div className="text-2xl text-gray-600">Total Expected Rewards</div>
             </div>
           </div>
 
@@ -100,7 +100,7 @@ export default function RewardBreakdown({ breakdown, loading, onCalculate }: Rew
                       <h4 className={`text-lg font-medium capitalize ${getSeverityTextColor(severity)}`}>
                         {severity} Severity
                       </h4>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-2xl text-gray-600">
                         Total {data.issueCount} issues · ${data.individualReward.toLocaleString()} each
                       </p>
                     </div>
@@ -108,7 +108,7 @@ export default function RewardBreakdown({ breakdown, loading, onCalculate }: Rew
                       <div className={`text-xl font-bold ${getSeverityTextColor(severity)}`}>
                         ${data.totalPool.toLocaleString()}
                       </div>
-                      <div className="text-sm text-gray-600">Reward Pool</div>
+                      <div className="text-2xl text-gray-600">Reward Pool</div>
                     </div>
                   </div>
 

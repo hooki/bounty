@@ -20,10 +20,10 @@ export default function Header() {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3 group">
               <div>
-                <div className="text-lg font-pixel text-xs text-pixel-accent">
+                <div className="text-lg font-pixel text-sm text-pixel-accent">
                   CyberHunt
                 </div>
-                <div className="text-xs text-pixel-text-muted -mt-1">Bug Bounty Platform</div>
+                <div className="text-sm text-pixel-text-muted -mt-1">Bug Bounty Platform</div>
               </div>
             </Link>
 
@@ -77,17 +77,17 @@ export default function Header() {
                   alt={user.user_metadata?.user_name}
                 />
                 <div className="hidden sm:block">
-                  <div className="text-sm font-medium text-pixel-text">
+                  <div className="text-2xl font-medium text-pixel-text">
                     {user.user_metadata?.user_name}
                   </div>
-                  <div className="text-xs text-pixel-text-muted">Hunter</div>
+                  <div className="text-sm text-pixel-text-muted">Hunter</div>
                 </div>
               </button>
 
               {/* Logout Button */}
               <button
                 onClick={signOut}
-                className="pixel-btn-secondary text-sm"
+                className="pixel-btn-secondary text-base"
               >
                 <span className="hidden sm:inline">Logout</span>
                 <span className="sm:hidden">Exit</span>
